@@ -2,7 +2,7 @@
 #include <string>
 
 using namespace std;
-// WSEN
+
 int dx[4] = {1, 0, -1, 0}, dy[4] = {0, -1, 0, 1};
 
 
