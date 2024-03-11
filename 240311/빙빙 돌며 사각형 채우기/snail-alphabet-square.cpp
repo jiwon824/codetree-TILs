@@ -31,7 +31,7 @@ int main() {
             x=nx;
             y=ny;
             alpha++;
-            if(alpha > 'Z') alpha-='A';
+            if(alpha > 'Z') alpha = 'A';
         }
     }
 
