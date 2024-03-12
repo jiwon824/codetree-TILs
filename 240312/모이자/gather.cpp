@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <climits>
 using namespace std;
 int main() {
     int n;
@@ -9,7 +9,7 @@ int main() {
         cin >> house[i];
     }
 
-    int answer=10000;
+    int answer=INT_MAX;
     for(int i =0;i<n;i++){
         int tmp=0;
         for(int j=0;j<n;j++){
