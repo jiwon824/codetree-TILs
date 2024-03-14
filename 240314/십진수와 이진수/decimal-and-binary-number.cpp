@@ -30,6 +30,8 @@ int main() {
                 break;
         }
     }
+    if (carry==1) answer='1'+answer;
+    
     cout << answer;
     return 0;
 }
