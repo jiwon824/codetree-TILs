@@ -16,11 +16,12 @@ bool IsLeapYear(int year){
 int main() {
     int y, m, d;
     cin >> y >> m >> d;
-    // 2월은 윤년
+    // 2월은 윤년 판단
     // 4, 6, 9, 11월은 30일까지
     // 1, 3, 5, 7, 8, 10, 12월은 31일까지
     if (m==2){
-        if(d>=29){
+        if(d>=30) cout << "-1";
+        if(d==29){
             if(IsLeapYear(y)) PrintSeason(m);
             else cout <<"-1";
         }
