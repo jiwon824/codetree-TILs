@@ -21,7 +21,7 @@ int main() {
     // 1, 3, 5, 7, 8, 10, 12월은 31일까지
     if (m==2){
         if(d>=30) cout << "-1";
-        if(d==29){
+        else if(d==29){
             if(IsLeapYear(y)) PrintSeason(m);
             else cout <<"-1";
         }
