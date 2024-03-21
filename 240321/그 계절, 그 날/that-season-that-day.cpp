@@ -15,14 +15,18 @@ bool IsLeapYear(int year){
 }
 int main() {
     int y, m, d;
-    cin >>y>>m>>d;
-    // 홀수 달은 31일이 존재 짝수 달은 31일이 없음
-    if(m%2==0){
-        if(m==2 && d==29){
+    cin >> y >> m >> d;
+    // 1, 3, 5, 7, 8, 10, 12월은 31일까지
+    // 4, 6, 9, 11월은 30일까지
+    if (m==2){
+        if(d==29){
             if(IsLeapYear(y)) PrintSeason(m);
             else cout <<"-1";
         }
-        else if(d==31) cout << "-1";
+        else PrintSeason(m);
+    }
+    else if(m==4 || m==6 || m==9 || m==11){
+        if(d==31) cout << "-1";
         else PrintSeason(m);
     }
     else PrintSeason(m);
