@@ -1,12 +1,10 @@
 #include <iostream>
 
 using namespace std;
-int answer = 0;
 int Solution(int n){
-    if(n==1) return answer;
-    answer++;
-    if(n%2==0) return Solution(n/2);
-    else return Solution(n/3);
+    if(n==1) return 0;
+    if(n%2==0) return Solution(n/2)+1;
+    else return Solution(n/3)+1;
 }
 int main() {
     int n;
