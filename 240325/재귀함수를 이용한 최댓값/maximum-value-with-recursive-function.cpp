@@ -3,7 +3,7 @@
 using namespace std;
 
 int FindMax(int *arr, int size){
-    if(size==1) return max(arr[0], arr[1]);
+    if(size==0) return arr[0];
     return max(arr[size], FindMax(arr, size-1));
 }
 int main() {
