@@ -31,8 +31,10 @@ int main() {
         d[i] = Data(n, h, w);
     }
     
+    // 소수점 첫째자리까지 출력
     cout << fixed;
 	cout.precision(1);
+
     cout <<"name\n";
     sort(d, d+5, CmpWithName);
     for(int i=0;i<5;i++){
