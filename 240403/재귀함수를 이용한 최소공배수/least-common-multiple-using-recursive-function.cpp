@@ -3,7 +3,6 @@
 using namespace std;
 
 int *arr;
-int *lcm;
 int n;
 
 int GCD(int n, int m){
@@ -30,7 +29,6 @@ int main() {
     //input
     cin >>n;
     arr = new int[n];
-    lcm = new int[n];
     for (int i=0;i<n;i++){
         cin >> arr[i];
     }
