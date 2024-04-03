@@ -11,12 +11,21 @@ int GCD(int n, int m){
     return GCD(m, n%m);
 }
 
-int LCM(int a, int b, int size){
-    int lcm = arr[a]*arr[b]/GCD(arr[a], arr[b]);
-    if(size<0) return lcm;
-    return LCM(a+2, b+2, size-4)*lcm;
+int LCM(int a, int b){
+    return a*b/GCD(a, b);
 }
 
+// n 개의 수 a[0], ... , a[n-1]이 주어졌을 때, 이 수들의 합을 구하는 코드
+//int Sum (int idx){
+//    if(idx==0) return arr[idx];
+//    return Sum(idx-1)+arr[idx];
+//}
+
+// n개의 수가 주어졌을 때 최소공배수 구하기
+int LCMAll(int idx){
+    if(idx==0) return arr[idx];
+    return LCM(LCMAll(idx-1), arr[idx]);
+}
 int main() {
     //input
     cin >>n;
@@ -26,14 +35,14 @@ int main() {
         cin >> arr[i];
     }
 
-    lcm[0]=arr[0];
-    lcm[1]=arr[1];
-    for(int i=2;i<n;i++){
-        int a = lcm[i-1];
-        int b = arr[i];
-        lcm[i]=a*b/GCD(a, b);
-        //cout << "i: "<< i << " "<< lcm[i] <<'\n';
-    }
-    cout << lcm[n-1];
+    //lcm[0]=arr[0];
+    //lcm[1]=arr[1];
+    //for(int i=2;i<n;i++){
+    //    int a = lcm[i-1];
+    //    int b = arr[i];
+    //    lcm[i]=a*b/GCD(a, b);
+    //    //cout << "i: "<< i << " "<< lcm[i] <<'\n';
+    //}
+    cout << LCMAll(n-1);
     return 0;
 }
