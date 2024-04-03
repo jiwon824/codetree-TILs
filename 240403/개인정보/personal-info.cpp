@@ -31,6 +31,8 @@ int main() {
         d[i] = Data(n, h, w);
     }
     
+    cout << fixed;
+	cout.precision(1);
     cout <<"name\n";
     sort(d, d+5, CmpWithName);
     for(int i=0;i<5;i++){
