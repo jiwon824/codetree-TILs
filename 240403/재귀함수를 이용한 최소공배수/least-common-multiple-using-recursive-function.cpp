@@ -29,7 +29,9 @@ int main() {
     lcm[0]=arr[0];
     lcm[1]=arr[1];
     for(int i=2;i<n;i++){
-        lcm[i]=lcm[i-1]*arr[i]/GCD(lcm[i-1], arr[i]);
+        int a = lcm[i-1];
+        int b = arr[i];
+        lcm[i]=a*b/GCD(a, b);
         //cout << "i: "<< i << " "<< lcm[i] <<'\n';
     }
     cout << lcm[n-1];
