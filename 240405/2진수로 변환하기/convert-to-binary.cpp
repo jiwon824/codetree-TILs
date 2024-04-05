@@ -13,6 +13,7 @@ int main() {
         n/=2;
     }
     reverse(binary.begin(), binary.end());
+    if (n==0) binary.push_back(0);
     for(auto e : binary){
         cout << e;
     }
