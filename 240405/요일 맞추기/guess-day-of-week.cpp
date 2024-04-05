@@ -14,7 +14,7 @@ int main() {
     int num2 = num_of_days[m2]+d2;
     //cout << num1 << " " << num2 <<'\n';
     int diff = num2-num1;
-    if (diff<0) diff = diff+7;
+    while (diff<0) diff = diff+7;
     ans=(ans+diff)%7;
 
     cout << day_of_week[ans];
