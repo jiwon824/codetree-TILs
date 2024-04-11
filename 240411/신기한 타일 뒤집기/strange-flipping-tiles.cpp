@@ -11,19 +11,25 @@ int main() {
         int x;
         char dir;
         cin >> x >> dir;
-        if(dir =='L'){
-            // 흰색=1
-            for(int j=pos-x; j<pos; j++){
-                arr[j]=1;
-            }
-            pos-=x;
+        if (x==1){
+            if(dir=='L') arr[pos]=1;
+            else arr[pos]=2;
         }
         else{
-            // 검은색=2
-            for(int j=pos; j<pos+x; j++){
-                arr[j]=2;
+            if(dir =='L'){
+                // 흰색=1
+                for(int j=pos-x+1; j<=pos; j++){
+                    arr[j]=1;
+                }
+                pos= pos-x+1;
             }
-            pos+=x;
+            else{
+                // 검은색=2
+                for(int j=pos; j<pos+x; j++){
+                    arr[j]=2;
+                }
+                pos= pos+x-1;
+            }
         }
     }
 
