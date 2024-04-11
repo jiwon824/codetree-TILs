@@ -15,6 +15,8 @@ int main() {
     for(int i =0; i<n; i++){
         int x1, y1;
         cin >> x1 >> y1;
+        x1+=100;
+        y1+=100;
         Draw(x1, y1);
     }
 
