@@ -19,6 +19,10 @@ int main() {
     for (int i=0; i<n; i++){
         int x1, y1, x2, y2;
         cin >> x1 >> y1 >> x2 >> y2;
+        x1+=100;
+        y1+=100;
+        x2+=100;
+        y2+=100;
         Check(x1, y1, x2, y2);
     }
     
