@@ -26,9 +26,11 @@ int main() {
     }
 
     int r1=OFFSET*2+1, c1=OFFSET*2+1, r2=0, c2=0;
+    bool exist = false;
     for(int i=0; i<OFFSET*2+1; i++){
         for(int j=0; j<OFFSET*2+1; j++){
             if(arr[i][j]==1){
+                exist =true;
                 // 좌측하단(r1, c1) 우측상단?(r2, c2)구하기
                 r1 = min(r1, i);
                 c1 = min(c1, j);
@@ -39,6 +41,7 @@ int main() {
     }
     int width = r2-r1+1;
     int height = c2-c1+1;
-    cout <<width*height;
+    if(exist) cout <<width*height;
+    else cout << 0;
     return 0;
 }
