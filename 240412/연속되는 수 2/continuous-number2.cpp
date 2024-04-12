@@ -18,6 +18,7 @@ int main() {
             length=1;
         }
     }
+    max_len = max(length, max_len);
     cout << max_len;
     return 0;
 }
