@@ -15,7 +15,10 @@ class Point{
 };
 
 bool cmp(Point a, Point b){
-    return abs(a.x-0)+abs(a.y-0) < abs(b.x-0)+abs(b.y-0);
+    int a_dist = abs(a.x-0)+abs(a.y-0);
+    int b_dist = abs(b.x-0)+abs(b.y-0);
+    if (a_dist ==b_dist) return a.num < b.num; 
+    return a_dist < b_dist;
 }
 int main() {
     int n;
