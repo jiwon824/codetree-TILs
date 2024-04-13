@@ -11,14 +11,14 @@ int main() {
 
     int max_len =1, len=1;
     bool exist =false;
-    for(int i=1; i<n; i++){
-        if(arr[i]>t && arr[i-1]<arr[i]){
+    for(int i=0; i<n-1; i++){
+        if(arr[i]>t && arr[i]<arr[i+1]){
             len++;
             exist = true;
         }
         else{
             max_len = max(max_len, len);
-            len =1;
+            len=1;
         }
     }
     max_len = max(max_len, len);
