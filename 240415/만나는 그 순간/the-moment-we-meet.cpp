@@ -55,7 +55,8 @@ int main() {
     }
     
     bool exist = false;
-    for(int i=1;i<MAX_MOVE;i++){
+    for(int i=1;i<aTime;i++){
+        //cout << b[i] << " ";
         if (a[i]==b[i]){
             exist = true;
             cout << i;
