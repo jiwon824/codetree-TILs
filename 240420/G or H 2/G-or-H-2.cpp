@@ -16,9 +16,9 @@ int main() {
     int answer =0;
     for(int i=0; i<101; i++){
         for(int j=i; j<101; j++){
+            if(people[i]==0 || people[j]==0) continue;
             int num_of_G=0, num_of_H=0;
             for(int k=i; k<=j; k++){
-                if(people[i]==0||people[j]==0) continue;
                 if(people[k]==1) {
                     num_of_G++;
                 }
@@ -26,7 +26,6 @@ int main() {
                     num_of_H++;
                 }
             }
-            
             if(num_of_G==num_of_H || num_of_G==0 || num_of_H==0){
                 //cout << i << " " << j << " " << people[i] << " "<< people[j]<<'\n';
                 int size=j-i;
