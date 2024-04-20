@@ -25,7 +25,7 @@ int main() {
                     num_of_H++;
                 }
             }
-            if(num_of_G==0 && num_of_H==0) continue;
+            //if(num_of_G==0 && num_of_H==0) continue;
             if(people[i]!=0 && people[j]!=0){
                 if(num_of_G==num_of_H || num_of_G==0 || num_of_H==0){
                     //cout << i << " " << j << " " << people[i] << " "<< people[j]<<'\n';
