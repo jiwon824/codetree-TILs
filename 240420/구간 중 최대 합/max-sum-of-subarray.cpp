@@ -11,7 +11,7 @@ int main() {
     }
     
     int answer =0;
-    for(int i=0;i<n-k;i++){
+    for(int i=0;i<=n-k;i++){
         int sum =0;
         for(int j=i;j<k+i;j++){
             sum +=arr[j];
