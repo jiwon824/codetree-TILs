@@ -13,18 +13,22 @@ int main() {
         arr[pos] += candy; // 같은 위치에 바구니 여러 개 놓는 것이 가능해서 +=
     }
 
-    int c = k, max_candy=0;
-    for(int i=0; i<101; i++){
-        int num_of_candy =0;
-        for(int j =i-k; j<=i+k; j++){
-            if(j<0 || j>=101) break;
-            num_of_candy += arr[j];
-            //cout << num_of_candy <<'\n';
+    int max_candy=0;
+    if(k>101/2){
+        for(int i=0; i<101; i++){
+            max_candy+=arr[i];
         }
+    }
+    else{
+        for(int i=0; i<101; i++){
+            int num_of_candy =0;
+            for(int j =i-k; j<=i+k; j++){
+                if(j<0 || j>=101) break;
+                num_of_candy += arr[j];
+                //cout << num_of_candy <<'\n';
+            }
 
-        if(max_candy < num_of_candy){
-            max_candy = num_of_candy;
-            c=i;
+            if(max_candy < num_of_candy) max_candy = num_of_candy;
         }
     }
 
