@@ -14,22 +14,16 @@ int main() {
     }
 
     int max_candy=0;
-    if(k>101/2){
-        for(int i=0; i<101; i++){
-            max_candy+=arr[i];
-        }
-    }
-    else{
-        for(int i=0; i<101; i++){
-            int num_of_candy =0;
-            for(int j =i-k; j<=i+k; j++){
-                if(j<0 || j>=101) break;
-                num_of_candy += arr[j];
-                //cout << num_of_candy <<'\n';
-            }
 
-            if(max_candy < num_of_candy) max_candy = num_of_candy;
+    for(int i=0; i<101; i++){
+        int num_of_candy =0;
+        for(int j =i-k; j<=i+k; j++){
+            if(j<0 || j>=101) continue;
+            num_of_candy += arr[j];
+            //cout << num_of_candy <<'\n';
         }
+
+        if(max_candy < num_of_candy) max_candy = num_of_candy;
     }
 
     cout << max_candy;
