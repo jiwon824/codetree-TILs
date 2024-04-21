@@ -17,7 +17,6 @@ int main() {
     for(int i=0; i<n; i++){
         int cost=0, num_of_h =0;
         for(int j=i;j<n;j++){
-            if(num_of_h>=t) break;
             if(arr[j]==h){
                 num_of_h++;
             }
@@ -29,6 +28,7 @@ int main() {
                 cost += arr[j]-h;
                 num_of_h++;
             }
+            if(num_of_h>=t) break;
         }
         if(cost<min_cost) min_cost = cost;
     }
