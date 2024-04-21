@@ -14,10 +14,12 @@ int main() {
     }
 
     int c = k, max_candy=0;
-    for(int i=k; i<101-k; i++){
+    for(int i=0; i<101; i++){
         int num_of_candy =0;
         for(int j =i-k; j<=i+k; j++){
+            if(j<0 || j>=101) break;
             num_of_candy += arr[j];
+            //cout << num_of_candy <<'\n';
         }
 
         if(max_candy < num_of_candy){
