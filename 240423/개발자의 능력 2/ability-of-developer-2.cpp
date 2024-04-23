@@ -8,8 +8,6 @@ int total_sum =0;
 int GetDiff(int a, int b, int c, int d){
     int team1 = arr[a]+arr[b], team2 = arr[c]+arr[d], team3 = total_sum-(arr[a]+arr[b]+arr[c]+arr[d]);
     
-    if(team1==team2 || team2==team3 || team1==team3) return 0;
-
     int max_team, min_team;
     if(team1>team2 && team1>team3) {
         max_team = team1;
