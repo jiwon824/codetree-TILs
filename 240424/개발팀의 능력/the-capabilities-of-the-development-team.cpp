@@ -5,9 +5,8 @@ using namespace std;
 int arr[5];
 int total_sum;
 
-int GetDiff(int a, int b, int c, int d){
-    int team1= arr[a]+arr[b], team2=arr[c]+arr[d], team3 = total_sum-(team1+team2);
-    int max_team = max(team1, max(team2, team3)), min_team = min(team1, min(team2, team3));
+int GetDiff(int a, int b, int c){
+    int max_team = max(a, max(b, c)), min_team = min(a, min(b, c));
     return max_team-min_team;
 }
 int main() {
@@ -23,9 +22,9 @@ int main() {
                 for(int l=k+1; l<5; l++){
                     if(i==k || j==k || i==l || j==l) continue;
                     // 모든 팀의 능력치가 달라야 함
-                    if(arr[i]+arr[j]==arr[k]+arr[l] || arr[i]+arr[j]==total_sum-(arr[i]+arr[j]) || arr[k]+arr[l]==total_sum-(arr[k]+arr[l])) continue;
-                    //cout << i << " " << j << " " << k << " " << l << " " << GetDiff(i, j, k, l) << '\n';
-                    min_diff = min(min_diff, GetDiff(i, j, k, l));
+                    int team1= arr[i]+arr[j], team2=arr[k]+arr[l], team3 = total_sum-(team1+team2);
+                    if(team1==team2 || team1==team3 || team2==team3) continue;
+                    min_diff = min(min_diff, GetDiff(team1, team2, team3));
                 }
             }
         }
