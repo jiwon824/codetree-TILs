@@ -30,6 +30,7 @@ int main() {
             }
         }
     }
-    cout << min_diff;
+    if(min_diff==INT_MAX) cout << "-1";
+    else cout << min_diff;
     return 0;
 }
