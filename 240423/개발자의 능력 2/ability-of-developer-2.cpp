@@ -8,22 +8,7 @@ int total_sum =0;
 int GetDiff(int a, int b, int c, int d){
     int team1 = arr[a]+arr[b], team2 = arr[c]+arr[d], team3 = total_sum-(arr[a]+arr[b]+arr[c]+arr[d]);
     
-    int max_team, min_team;
-    if(team1>team2 && team1>team3) {
-        max_team = team1;
-        if(team2<team3) min_team = team2;
-        else min_team = team3;
-    }
-    else if(team2>team1 && team2>team3) {
-        max_team = team2;
-        if(team1<team3) min_team = team1;
-        else min_team = team3;
-    } 
-    else if(team3>team1 && team3>team2) {
-        max_team = team3;
-        if(team1<team2) min_team = team1;
-        else min_team = team2;
-    }
+    int max_team = max(team1, max(team2, team3)), min_team = min(team1, min(team2, team3));
     return max_team - min_team;
 }
 
@@ -38,7 +23,7 @@ int main() {
     for(int i=0; i<6; i++){
         for(int j=i+1; j<6; j++){
             for(int k=0; k<6; k++){
-                for(int l=k+1; k<6; k++){
+                for(int l=k+1; l<6; l++){
                     if(k == i || k == j || l == i || l == j) continue;
                     min_diff = min(min_diff, GetDiff(i, j, k, l));
                 }
