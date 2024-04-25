@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <algorithm>
 using namespace std;
 
 int gift_price[1000];
@@ -10,6 +10,7 @@ int main() {
         cin >> gift_price[i];
     }
 
+    sort(gift_price, gift_price+n);
     int max_gift =0;
     for(int i=0; i<n; i++){
         int num_of_gifts=0, tmp_budget=b;
@@ -23,11 +24,12 @@ int main() {
                 if(tmp_budget<gift_price[j]) continue;
                 tmp_budget-=gift_price[j];
             }
-
+            //cout << j << " " << tmp_budget<< '\n';
             num_of_gifts++;
             if(tmp_budget==0) break;
         }
         if(max_gift < num_of_gifts) max_gift=num_of_gifts;
+        //cout << "========"<< max_gift << "==========\n";
     }
     cout << max_gift;
     return 0;
