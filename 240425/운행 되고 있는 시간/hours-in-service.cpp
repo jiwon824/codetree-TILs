@@ -20,7 +20,7 @@ int main() {
             if(work_time[j][1]>max_end) max_end = work_time[j][1]; 
         }
         //cout << max_end << " " << min_start <<'\n'; 
-        int runtime = max_end-min_start;
+        int runtime = max_end-min_start-1;
         max_runtime = max(max_runtime, runtime);
     }
     cout << max_runtime;
