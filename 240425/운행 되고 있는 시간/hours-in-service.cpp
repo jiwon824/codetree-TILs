@@ -1,9 +1,10 @@
 #include <iostream>
-#include <algorithm>
-
+#define MAX_N 101
+#define MAX_TIME 1001
 using namespace std;
 
-int work_time[100][2];
+int work_time[MAX_N][2]; // 각 직원의 출근/퇴근시간
+
 int main() {
     int n;
     cin >> n;
@@ -13,16 +14,25 @@ int main() {
     
     int max_runtime =0;
     for(int i=0; i<n; i++){
-        int min_start=10000, max_end=0;
+        int hours_of_operation[MAX_TIME] ={0, }; // 운영시간을 보기 위한 배열
         for(int j =0; j<n; j++){
-            if(i==j) continue; // i번째 사원을 뺐을 때 운행되고 있는 시간을 구할 거기 때문
-            if(work_time[j][0]<min_start) min_start = work_time[j][0];
-            if(work_time[j][1]>max_end) max_end = work_time[j][1]; 
+            if(i==j) continue; // i번째 사원을 뺐을 때 운행되고 있는 시간을 구할 거기 때문에 continue
+            
+            // j 사원이 일하는 시간 체크
+            for(int k =work_time[j][0]; k<work_time[j][1]; k++){
+                hours_of_operation[k]++;
+            }
         }
-        //cout << max_end << " " << min_start <<'\n'; 
-        int runtime = max_end-min_start-1;
-        max_runtime = max(max_runtime, runtime);
+        
+        // 운영시간 체크
+        int runtime=0;
+        for(int j=0; j<MAX_TIME; j++){
+            if(hours_of_operation[j]>0) runtime++; 
+        }
+        //cout << runtime <<'\n';
+        if(max_runtime<runtime) max_runtime=runtime;
     }
     cout << max_runtime;
+
     return 0;
 }
