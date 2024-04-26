@@ -42,7 +42,7 @@ int main() {
         infos[i] = Info(p, m, t);
     }
 
-    sort(infos, infos+d, cmp);
+    //sort(infos, infos+d, cmp);
 
     // p번째 사람이 언제(t초) 아팠는지 기록
     for(int i=0; i<s; i++){
@@ -57,8 +57,7 @@ int main() {
     // ==============[Solution]==============
     // 아픈 사람들이 공통으로 먹은 치즈(suspicious_cheese[i]==s)가 수상한 치즈(i).
     // m은 치즈 갯수
-
-    //cout << "상한 치즈를 먹은 사람은?\n";
+    
     int answer =0;
     for(int i=0; i<=m; i++){
         //cout << suspicious_cheese[infos[i].cheese] << "가 수상할까?\n";
