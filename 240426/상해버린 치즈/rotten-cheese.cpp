@@ -62,15 +62,20 @@ int main() {
     int answer =0;
     for(int i=0; i<m; i++){
         if(suspicious_cheese[i]==s){
+            //cout<< i <<"번 치즈가 수상하다\n";
             bool patients[50] = {false, }; 
             for(int j=0; j<d; j++){
-                if(infos[j].cheese==i) patients[infos[j].person] = true;
+                if(infos[j].cheese==i) {
+                    patients[infos[j].person] = true;
+                    //cout << infos[j].person <<"은 i번 치즈를 먹었다\n";
+                }
             }
 
             int num_of_patients=0;
-            for(int j =0; j<n;j++){
+            for(int j =0; j<=n;j++){
                 if(patients[j]) num_of_patients++;
             }
+            //cout << i << "번 치즈는 "<< num_of_patients << "명을 아프게 했다\n";
             if(answer<num_of_patients) answer= num_of_patients;
         }
     }
