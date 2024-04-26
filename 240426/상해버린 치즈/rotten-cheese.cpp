@@ -60,8 +60,9 @@ int main() {
 
     //cout << "상한 치즈를 먹은 사람은?\n";
     int answer =0;
-    for(int i=0; i<m; i++){
-        if(suspicious_cheese[i]==s){
+    for(int i=0; i<=m; i++){
+        //cout << suspicious_cheese[infos[i].cheese] << "가 수상할까?\n";
+        if(suspicious_cheese[i]>=s){
             //cout<< i <<"번 치즈가 수상하다\n";
             bool patients[50] = {false, }; 
             for(int j=0; j<d; j++){
@@ -79,10 +80,7 @@ int main() {
             if(answer<num_of_patients) answer= num_of_patients;
         }
     }
-    
-    //cout << i << "번째 치즈는 " << suspicious_cheese[i] << '\n';
-    //cout << i << "번째 치즈를 먹은 사람은 "<< num_of_patients<<'\n';
-    
+
     cout << answer;
     return 0;
 }
