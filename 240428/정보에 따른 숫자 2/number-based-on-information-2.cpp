@@ -19,18 +19,18 @@ int main() {
     }
     
     int answer =0;
-    for(int i=a; i<=b; i++){
+    for(int i=a; i<=1000; i++){
         int dist_s=1000, dist_n=1000;
         // 특정 위치 i에서 가장 가까이 있는 s의 위치
         for(int j=0; j<=b; j++){
             if(arr[j]=='S'){
-                if(abs(i-j)<=dist_s)dist_s = abs(i-j);
+                if(abs(i-j)<dist_s) dist_s = abs(i-j);
             }
         }
         // 특정 위치 i에서 가장 가까이 있는 n의 위치
-        for(int j=0; j<=b; j++){
+        for(int j=0; j<=1000; j++){
             if(arr[j]=='N'){
-                if(abs(i-j)<dist_n)dist_n = abs(i-j);
+                if(abs(i-j)<dist_n) dist_n = abs(i-j);
             }
         }
 
