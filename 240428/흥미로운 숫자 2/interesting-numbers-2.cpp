@@ -3,19 +3,21 @@
 using namespace std;
 
 bool isInteresting(int num){
-    //cout << num <<'\n';
+    //cout << "=========" << num << "=========" <<'\n';
     int num_of_numbers[10] ={0, };
 
+    int disit =0;
     while(num){
         num_of_numbers[num%10]++;
         num/=10;
+        disit++;
     }
 
     int num_of_diff =0;
     for(int i=0; i<10; i++){
-        if(num_of_numbers[i]==1) num_of_diff++;
+        //cout << num_of_numbers[i] <<" ";
+        if(num_of_numbers[i]==disit-1) return true;
     }
-    if(num_of_diff==1) return true;
     return false;
 }
 int main() {
