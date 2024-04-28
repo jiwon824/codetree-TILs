@@ -19,10 +19,10 @@ int main() {
     }
     
     int answer =0;
-    for(int i=a; i<=1000; i++){
+    for(int i=a; i<=b; i++){
         int dist_s=1000, dist_n=1000;
         // 특정 위치 i에서 가장 가까이 있는 s의 위치
-        for(int j=0; j<=b; j++){
+        for(int j=0; j<=1000; j++){
             if(arr[j]=='S'){
                 if(abs(i-j)<dist_s) dist_s = abs(i-j);
             }
