@@ -17,8 +17,8 @@ int main() {
     
     int min_m = 100; // 점 갯수는 최대 100개니까
     // x, y는 모두 홀수이기 때문에 짝수지점에만 x, y축을 그려보면 된다.
-    for(int i=2; i<=max_x; i+=2){
-        for(int j=2; j<=max_y; j+=2){
+    for(int i=0; i<=max_x; i+=2){
+        for(int j=0; j<=max_y; j+=2){
             // x=i, y=j일 때 모든 점 탐색
             int q1=0, q2=0, q3=0, q4=0;
             for(int k=0; k<n; k++){
