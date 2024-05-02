@@ -12,6 +12,11 @@ bool Check(int a, int b){
             if(board[i][j]==a || board[i][j]==b) continue;
             isAnswer= false;
         }
+
+        // 가로가 전부 같은 줄이면 정답 아님
+        if((board[i][0]==a && board[i][1]==a && board[i][2]==a)||
+           (board[i][0]==b && board[i][1]==b && board[i][2]==b)) isAnswer = false;
+
         if(isAnswer) return true;
     }
 
@@ -25,6 +30,10 @@ bool Check(int a, int b){
             if(board[j][i]==a || board[j][i]==b) continue;
             isAnswer= false;
         }
+        // 세로가 전부 같은 줄이면 정답 아님
+        if((board[0][i]==a && board[1][i]==a && board[2][i]==a)||
+           (board[0][i]==b && board[1][i]==b && board[2][i]==b)) isAnswer = false;
+
         if(isAnswer) return true;
     }
     
@@ -33,14 +42,20 @@ bool Check(int a, int b){
     // \대각선 확인
     if((board[0][0] == a || board[0][0] == b) &&
        (board[1][1] == a || board[1][1] == b) &&
-       (board[2][2] == a || board[2][2] == b)) return true;
+       (board[2][2] == a || board[2][2] == b)){
+        if(!(board[0][0] == a && board[1][1] == a && board[2][2] == a) &&
+           !(board[0][0] == b && board[1][1] == b && board[2][2] == b)) return true;
+       }
     
     //cout << " \\대각선 정답 아님\n";
     
     //  /대각선 확인
     if((board[0][2] == a || board[0][2] == b) &&
        (board[1][1] == a || board[1][1] == b) &&
-       (board[2][0] == a || board[2][0] == b)) return true;
+       (board[2][0] == a || board[2][0] == b)) {
+        if(!(board[0][2] == a && board[1][1] == a && board[2][0] == a) &&
+           !(board[0][2] == b && board[1][1] == b && board[2][0] == b)) return true;
+       }
     
     //cout << " /대각선 정답 아님\n";
     
@@ -66,6 +81,7 @@ int main() {
             
             // 가로 세로 우대각 좌대각 확인
             if(Check(i, j)) answer++;
+            //cout << i << " " << j << " " << Check(i, j)<<'\n';
         }
     }
     cout << answer;
