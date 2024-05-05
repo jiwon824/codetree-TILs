@@ -29,11 +29,13 @@ void Infect(){
         else if(infection_status[x] && num_of_infections[x]>0){
             infection_status[y]=true; // y감염됨
             num_of_infections[y]=k; // y는 k번 감염시킬 수 있음
+            num_of_infections[x]--; // x는 1번 감염시켰으므로 감염가능횟수--
         }
         // y가 감염상태이면서, 감염시킬 수 있는 횟수가 남은 경우
         else if(infection_status[y] && num_of_infections[y]>0){
-            infection_status[y]=true; // x감염됨
-            num_of_infections[y]=k; // x는 k번 감염시킬 수 있음
+            infection_status[x]=true; // x감염됨
+            num_of_infections[x]=k; // x는 k번 감염시킬 수 있음
+            num_of_infections[y]--; // x는 1번 감염시켰으므로 감염가능횟수--
         }
     }
 }
