@@ -20,10 +20,10 @@ bool cmp_time(vector<int> &v1, vector<int> &v2){
 void Infect(){
     for(int i=0; i<record_handshakes.size(); i++){
         int x = record_handshakes[i][1], y = record_handshakes[i][2];
-        // 둘 다 감염횟수가 남은 경우
-        if((infection_status[x] && num_of_infections[x]>0)&&(infection_status[y] && num_of_infections[y]>0)){
-            num_of_infections[x]--;
-            num_of_infections[y]--;
+        // 둘 다 감염상태인데, 누군가 감염횟수가 남은 경우
+        if((infection_status[x]&&infection_status[y])&&(num_of_infections[x>0 || num_of_infections[y]>0])){
+            if(num_of_infections[x]>0) num_of_infections[x]--;
+            if(num_of_infections[y]>0) num_of_infections[y]--;
         }
         // x가 감염상태이면서, 감염시킬 수 있는 횟수가 남은 경우
         else if(infection_status[x] && num_of_infections[x]>0){
