@@ -42,9 +42,12 @@ int main() {
         init_v.push_back(i); // 초기 수열의 첫 원소가 i라고 가정
         for(int j=1; j<n; j++){
             int num = input_v[j-1]-init_v[j-1];
+            // num의 범위는 1이상 n이하
+            if(num <= 0) break;
+            if(find(init_v.begin(), init_v.end(), num) != init_v.end()) break;
+            
             // num이 중복 원소가 아니라면 초기 수열 init_v에 추가
-            if(find(init_v.begin(), init_v.end(), num) == init_v.end()) init_v.push_back(num);
-            else break;
+            init_v.push_back(num);
         }
 
         if(init_v.size()==n){
