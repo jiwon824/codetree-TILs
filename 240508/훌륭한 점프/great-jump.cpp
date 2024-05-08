@@ -43,7 +43,7 @@ int main() {
 
     // **거쳐간 지점에 적혀있던 숫자들 중** 최댓값이 최소가 되도록 하는 프로그램을 작성
     int answer=n;
-    for(int i=1; i<=max_num; i++){
+    for(int i=max(rock[0], rock[n-1]); i<=max_num; i++){
         if(IsPossible(i)) answer=min(answer, i);
     }
     cout << answer;
