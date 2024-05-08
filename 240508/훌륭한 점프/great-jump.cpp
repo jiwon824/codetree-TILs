@@ -16,20 +16,20 @@ bool IsPossible(int max_val){
             available_idx[cnt++] =i;
         }
     }
-
-    /*
+/*
     cout << "cnt=" << cnt << '\n';
     for(int i=0; i<n; i++){
         cout << available_idx[i] << " ";
     }
     cout << '\n';
-    */
+*/  
 
     for(int i=1; i<cnt; i++){
         int dist = available_idx[i]-available_idx[i-1];
         if(dist>k) return false;
     }
     if(available_idx[0]>k) return false;
+    
     return true;
 }
 
@@ -42,8 +42,9 @@ int main() {
     }
 
     // **거쳐간 지점에 적혀있던 숫자들 중** 최댓값이 최소가 되도록 하는 프로그램을 작성
-    int answer=n;
+    int answer=101;
     for(int i=max(rock[0], rock[n-1]); i<=max_num; i++){
+        //cout << "max_val=" << i << " " << IsPossible(i)<<'\n';
         if(IsPossible(i)) answer=min(answer, i);
     }
     cout << answer;
