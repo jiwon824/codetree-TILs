@@ -30,7 +30,7 @@ int main() {
 
     int max_explosion =0, answer=0;
     for(int i=min_bomb_num; i<=max_bomb_num; i++){
-        if(max_explosion<num_of_explosion[i]) {
+        if(max_explosion<=num_of_explosion[i]) {
             max_explosion= num_of_explosion[i];
             answer=i;
         }
