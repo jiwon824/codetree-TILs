@@ -36,7 +36,7 @@ int main() {
         if(max_explosion<=num_of_explosion[bomb_num]) {
             //cout << num_of_explosion[bomb_num] <<'\n';
             max_explosion=num_of_explosion[bomb_num];
-            if(num_of_explosion[bomb_num]!=0) answer=i;
+            if(num_of_explosion[bomb_num]!=0 && answer<bomb_num) answer=bomb_num;
         }
     }
     cout << answer;
