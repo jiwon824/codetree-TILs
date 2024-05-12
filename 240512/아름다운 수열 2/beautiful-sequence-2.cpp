@@ -52,7 +52,7 @@ void Make_comb(int curr_num){
         //for(auto e : v){
         //    cout << e << " ";
         //}
-        cout <<'\n';
+        //cout <<'\n';
         duplicate_Check.push_back(v);
         int num_of_beauty = Check_Beauty();
         answer += num_of_beauty;
