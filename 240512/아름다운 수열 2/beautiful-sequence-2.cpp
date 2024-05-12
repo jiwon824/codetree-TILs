@@ -45,16 +45,14 @@ void Make_comb(int curr_num){
                 if(v[j]!=duplicate_Check[i][j]) isSame = false;
             }
             // 같은 걸 찾았다
-            if(isSame){
-                return;
-            }
+            if(isSame) return;
         }
         // 위에서 return되지 않았다는 것은 v가 duplicate_Check에 없었다는 뜻
 
         //for(auto e : v){
         //    cout << e << " ";
         //}
-        //cout <<'\n';
+        cout <<'\n';
         duplicate_Check.push_back(v);
         int num_of_beauty = Check_Beauty();
         answer += num_of_beauty;
@@ -84,7 +82,12 @@ int main() {
     for(int i=0; i<m; i++){
         cin>> b[i];
     }
-    Make_comb(0);
-    cout << answer;
+
+    // n<m이라면 a에서 길이가 m인 연속 부분 수열이 있을 수 없음
+    if(n<m) cout << "0";
+    else{    
+        Make_comb(0);
+        cout << answer;
+    }
     return 0;
 }
