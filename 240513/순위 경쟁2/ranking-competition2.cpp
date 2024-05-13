@@ -19,7 +19,7 @@ int main() {
             nb+=score;
         }
         // 변동이 없을 경우 아무것도 하지 않음
-        if((a>b && na>nb) || (b>a && nb>na)) {
+        if((a>b && na>nb) || (b>a && nb>na) || (a==b && na==nb)) {
             // do nothing
         }
         else{
