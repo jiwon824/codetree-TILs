@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <climits>
 
 using namespace std;
 
@@ -12,9 +13,10 @@ int main() {
         cin >> arr[i];
     }
 
-    int answer = 101;
+    int answer = INT_MAX;
     // 구간 합의 최댓값이 i일 경우
-    for(int i=1; i<101; i++){
+    // 주어지는 숫자는 1이상 100이하, 최대 100개의 수가 주어지니까
+    for(int i=1; i<=10000; i++){
         bool isAnswer = true;
         int section =1;
         int interval_sum = 0; //현재 구간합
@@ -31,10 +33,7 @@ int main() {
             interval_sum+=arr[j];
         }
         if(isAnswer && section<=m){
-            if(i<answer){
-                answer=i;
-                break;
-            }
+            if(i<answer) answer=i;
         }
     }
     cout << answer;
