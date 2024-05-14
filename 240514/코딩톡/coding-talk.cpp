@@ -26,17 +26,23 @@ int main() {
         msg.push_back({c, u});
     }
 
+    // 0부터 시작하기 때문에 확인할 메세지 = msg[p-1]
+    // 모든 사람이 다 읽었으면 출력x
+    if(msg[p-1].second == 0) return 0;
+
+    // 확인할 메세지 이후에 메세지를 보낸 사람 전부 체크
     for(int i=p-1; i<m; i++){
-        if(msg[i].second == 0){
-            for(int j=0; j<n; j++){
-                isRead[j]= true;
-            }
-            break;
-        }
-        if(msg[p-2].second == msg[p-1].second){
-            int sender = msg[p-2].first -'A';
-            isRead[sender] = true;
-        }
+        int sender = msg[i].first -'A';
+        isRead[sender] = true;
+    }
+
+    // 확인해야 할 메세지랑 읽은 사람이 같은 이전 메세지
+    int msg_read_by_same=p-1;
+    for(int i=p-2; i>=0; i--){
+        if(msg[i-1].second == msg[i].second) msg_read_by_same =i;
+        else break;
+    }
+    for(int i=msg_read_by_same; i<=p-1; i++){
         int sender = msg[i].first -'A';
         isRead[sender] = true;
     }
