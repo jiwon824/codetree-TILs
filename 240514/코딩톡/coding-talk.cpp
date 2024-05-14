@@ -37,16 +37,12 @@ int main() {
     }
 
     // 확인해야 할 메세지랑 읽은 사람이 같은 이전 메세지
-    int msg_read_by_same=p-1;
     for(int i=p-1; i>=0; i--){
-        if(msg[i-1].second == msg[i].second) msg_read_by_same =i;
-        else break;
-    }
-    
-    for(int i=msg_read_by_same; i<=p-1; i++){
+        if(msg[p-1].second != msg[i].second) break;// 읽은 사람의 수가 달라지면 break
         int sender = msg[i].first -'A';
         isRead[sender] = true;
     }
+
     
     for(int i=0; i<n; i++){
         char reader = (char)i+'A';
