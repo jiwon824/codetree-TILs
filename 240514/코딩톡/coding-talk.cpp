@@ -17,6 +17,13 @@ int main() {
     }
 
     for(int i=p-1; i<m; i++){
+        if(msg[i].second == 0){
+            for(int j=0; j<n; j++){
+                isRead[j]= true;
+            }
+            break;
+        }
+        
         int sender = msg[i].first -'A';
         isRead[sender] = true;
     }
