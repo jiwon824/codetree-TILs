@@ -6,6 +6,17 @@ using namespace std;
 // ( 0, -1) ( 0, 0) ( 0, 1)
 // ( 1, -1) ( 1, 0) ( 1, 1)
 // 좌 좌상 상 우상 우 우하 하 좌하
+enum Dir{
+    DIR_LEFT,
+    DIR_LEFT_UP,
+    DIR_UP,
+    DIR_RIGHT_UP,
+    DIR_RIGHT,
+    DIR_RIGHT_DOWN,
+    DIR_DOWN,
+    DIR_LEFT_DOWN
+};
+
 int dx[8] = {0, -1, -1, -1, 0, 1, 1, 1};
 int dy[8] = {-1, -1, 0, 1, 1, 1, 0, -1};
 
@@ -18,7 +29,7 @@ bool InRange(pair<int, int> block){
     return true;
 }
 
-int Cnt_Max_LBlock(){
+int Cnt_Max_IBlock(){
     int max_sum =0;
 
     // arr[i][j]를 기준으로 L블록 배치
@@ -45,7 +56,7 @@ int Cnt_Max_LBlock(){
     return max_sum;
 }
 
-int Cnt_Max_IBlock(){
+int Cnt_Max_LBlock(){
     int max_sum = 0;
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
