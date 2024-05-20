@@ -27,10 +27,14 @@ int main() {
         }
     }
     int answer = abs(l_x-b_x)+abs(l_y-b_y)-1;
-    // 같은 선상에 있는데, L과 B사이에 R이 있을 경우
-    bool on_same_line_x = ( l_x==b_x && l_x==r_x && (abs(l_y-b_y)>abs(l_y-r_y)) );
-    bool on_same_line_y = ( l_y==b_y && l_y==r_y && (abs(l_x-b_x)>abs(l_x-r_x)) );
+    // 같은 선상에 있는데(l_x==b_x && l_x==r_x) && (BRL이거나 || LBR인 경우)
+    bool on_same_line_x = ( l_x==b_x && l_x==r_x &&
+        ((b_y<l_y) && (r_y<l_y) &&(b_y < r_y) || (b_y>l_y) && (r_y>l_y) &&(b_y > r_y)) );
+    bool on_same_line_y = ( l_y==b_y && l_y==r_y &&
+        ((b_x<l_x) && (r_x<l_x) &&(b_x < r_x) || (b_x>l_x) && (r_x>l_x) &&(b_x > r_x)) );
+    
     if(on_same_line_x || on_same_line_y) answer+=2;
     cout << answer;
+
     return 0;
 }
