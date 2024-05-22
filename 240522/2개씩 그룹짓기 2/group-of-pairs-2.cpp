@@ -1,12 +1,14 @@
 #include <iostream>
 #include <algorithm>
+#include <climits>
 
 using namespace std;
 
-int arr[100001];
 int main() {
     int n;
     cin >> n;
+    int* arr = new int[2*n];
+
     for(int i=0; i<2*n;i++){
         cin >> arr[i];
     }
@@ -18,11 +20,12 @@ int main() {
         // 정렬한 값을 (arr[2n-1], arr[n-1]) 이렇게 짝지어주기
     sort(arr, arr+2*n);
     
-    int answer=1000000000;
+    int answer=INT_MAX;
     for(int i=0; i<n; i++){
         int diff = arr[i+n]-arr[i];
-        if(diff<answer) answer = diff;
+        answer = min(answer, diff);
     }
     cout << answer;
+
     return 0;
 }
