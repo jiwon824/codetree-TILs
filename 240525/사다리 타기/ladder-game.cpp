@@ -24,7 +24,7 @@ void Make_Board(){
     // line을 그리기
     for(int i=0; i<(int)lines.size(); i++){
         board[lines[i].first][lines[i].second]=1;
-        board[lines[i].first][lines[i].second+1]=1;
+        board[lines[i].first][lines[i].second+1]=2;
     }
     // lines_to_remove에 들어있는 선 지우기
     for(int i=0; i<(int)lines_to_remove.size(); i++){
@@ -49,12 +49,13 @@ vector<int> Play(){
             // 0이면 가로줄이 없다는 뜻이므로 그냥 아래로 내려가기
             if(board[pos_x][pos_y]==1){
                 //오른쪽 이동
-                // 1 1 1 1 이런식으로 되어 있을 경우 오른쪽으로 가는 선을 먼저 봐야 올바르게 갈 수 있음
-                if(pos_y+1<n && board[pos_x][pos_y+1]==1){
+                if(pos_y+1<n && board[pos_x][pos_y+1]==2){
                     pos_y++;
                 }
+            }
+            else if(board[pos_x][pos_y]==2){
                 // 왼쪽 이동
-                else if(pos_y-1>=0 && board[pos_x][pos_y-1]==1){
+                if(pos_y-1>=0 && board[pos_x][pos_y-1]==1){
                     pos_y--;
                 }
             }
@@ -71,6 +72,13 @@ void FindMinLineSegments(int idx_line){
         vector<int> v = Play();
         // [갱신]처음과 결과가 같은데, 저장된 것보다 더 적은 선분을 이용했을 경우
         if(Possible(v)){
+            //cout << "possible\n";
+            //for(int i=0; i<m; i++){
+            //    for(int j=0; j<n; j++){
+            //        cout << board[i][j]<< " ";
+            //    }
+            //    cout << '\n';
+            //}
             int num_of_line = m-(int)lines_to_remove.size();
             if (num_of_line<answer) answer = num_of_line;
         }
