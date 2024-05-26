@@ -39,7 +39,7 @@ int ChooseRegions(){
             for(int k=i; k<n; k++){
                 for(int l=0; l<=n-m; l++){
                     // 도둑2: (k, l)~(k, l+m)까지 구간 잡기
-                    if(i==k && (l<=j && j<=l+m) ||(j<=l && l<=j+m)) continue; // 같은 행인데, 열이 겹치는 경우
+                    if(i==k && ((l<=j && j<=l+m) || (j<=l && l<=j+m))) continue; // 같은 행인데, 열이 겹치는 경우
 
                     value=0; // value 초기화
                     int tmp_val =0;
