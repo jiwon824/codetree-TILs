@@ -20,11 +20,9 @@ int main() {
         for(int j=1; j<n; j++){
             if(arr[i][j-1]==arr[i][j]) cnt++;
             else cnt=1;
-            if(cnt>=m){
-                answer++;
-                break;
-            }
+            if(cnt>=m) break;
         }
+        if(cnt>=m) answer++;
     }
     
     // 세로 체크
@@ -33,11 +31,9 @@ int main() {
         for(int j=1; j<n; j++){
             if(arr[j-1][i]==arr[j][i]) cnt++;
             else cnt=1;
-            if(cnt>=m){
-                answer++;
-                break;
-            }
+            if(cnt>=m) break;
         }
+        if(cnt>=m) answer++;
     }
     cout << answer<<'\n';
     return 0;
