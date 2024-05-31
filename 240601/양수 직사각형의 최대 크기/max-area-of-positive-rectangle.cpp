@@ -3,14 +3,15 @@
 
 using namespace std;
 
-int n, m, answer;
+int n, m;
+int answer=-1;
 int arr[21][21];
 
 int CheckRectangle(int x1, int y1, int x2, int y2){
     int cnt=0;
     for(int i=x1; i<=x2; i++){
         for(int j=y1; j<=y2; j++){
-            if(arr[i][j]<=0) return 0;
+            if(arr[i][j]<=0) return -1;
             cnt++;
         }
     }
