@@ -15,10 +15,21 @@ void PrintArr(){
 
 void GravitationalActions(){
     for(int col=0; col<n; col++){
+        int endOfIdx=-1;
         for(int row=n-1; row>0; row--){
             if(arr[row][col]==0){
-                arr[row][col]=arr[row-1][col];
-                arr[row-1][col]=0;
+                endOfIdx=row;
+
+                int x=row;
+                while(arr[x][col]==0){
+                    x--;
+                    if(x<0) break;
+                }
+                if(x<0) continue;
+
+                arr[endOfIdx][col]=arr[x][col];
+                arr[x][col]=0;
+                endOfIdx-=1;
             }
         }
     }
