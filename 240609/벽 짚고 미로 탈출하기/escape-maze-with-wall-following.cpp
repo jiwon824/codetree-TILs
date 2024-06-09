@@ -7,11 +7,15 @@ int visited[101][101];
 
 
 bool IsPossible(){
+    bool tooManyVisits = false, isLeft=false;
     for(int i=0; i<n; i++){
         for(int j=0; j<n; j++){
-            if(map[i][j]=='.'&&visited[i][j]==0) return true;
+            if(visited[i][j]>10) tooManyVisits = true;
+            if(map[i][j]=='.'&&visited[i][j]==0) isLeft=true;
         }
     }
+    if(tooManyVisits) return false;
+    else if(isLeft) return true;
     return false; // 전부 1이면 못 나감
 }
 
@@ -54,19 +58,19 @@ int Play(int x, int y){
             
             //이동했을 때 오른쪽에 벽이 있는 경우
             if(map[nx+dx[(dir+3)%4]][ny+dy[(dir+3)%4]]=='#'){
-                visited[x][y]=1;
+                visited[x][y]++;
                 x=nx;
                 y=ny;
                 time++;
             }
             else{
                 // 오른쪽에 벽이 없으면 한 칸 이동 후 시계방향 90도 한 칸 이동
-                visited[x][y]=1;
+                visited[x][y]++;
                 x=nx;
                 y=ny;
 
                 dir=(dir+3)%4;
-                visited[x][y]=1;
+                visited[x][y]++;
                 x+=dx[dir];
                 y+=dy[dir];
                 time+=2;
