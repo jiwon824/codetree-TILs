@@ -73,12 +73,13 @@ void Explode(){
 bool PossibleToExplode(){
     for(int col=0; col<n; col++){
         int cnt=1;
-        for(int row=n-1; row>0; row--){
-            if(arr[row][col]==0) break;
-            if(cnt>=m) return true;
+        for(int row=n-1; row>=0; row--){
+            if(arr[row][col]==0 || row-1<0) break;
 
             if(arr[row][col]==arr[row-1][col]) cnt++;
             else cnt=1;
+
+            if(cnt>=m) return true;
         }
     }
     return false;
@@ -111,7 +112,8 @@ int main() {
             Explode();
             Drop();
         }
-        
+
+
         Roatate();
         Drop();
 
