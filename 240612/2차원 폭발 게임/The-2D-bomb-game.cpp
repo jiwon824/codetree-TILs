@@ -69,6 +69,7 @@ void Explode(){
         }
     }
 }
+
 bool PossibleToExplode(){
     for(int col=0; col<n; col++){
         int cnt=1;
@@ -98,8 +99,13 @@ int main() {
             cin >> arr[i][j];
         }
     }
-    
+
     // solution
+    if(m==1){
+        cout << 0 <<'\n';
+        exit(0);
+    }
+
     for(int i=0; i<k; i++){
         while(PossibleToExplode()){
             Explode();
