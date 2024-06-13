@@ -7,16 +7,7 @@ int base[51][51];
 int tmp[51][51];
 int n, answer;
 
-void PrintArr(){
-    for(int i=0; i<n; ++i){
-        for(int j=0; j<n; ++j){
-            cout << tmp[i][j] << " ";
-        }
-        cout << '\n';
-    }
-}
-
-void FindNumOfPairs(){
+int FindNumOfPairs(){
     // 좌(0,-1) 상(-1,0) 우(0,1) 하(1,0)
     int dx[4]={0, -1, 0, 1};
     int dy[4]={-1, 0, 1, 0};
@@ -32,7 +23,7 @@ void FindNumOfPairs(){
             }
         }
     }
-    answer = max(answer, cnt/2); // 중복 때문에 cnt를 2로 나눠줘야 한다
+    return cnt/2;// 중복 때문에 cnt를 2로 나눠줘야 한다
 }
 
 void Drop(){
@@ -67,8 +58,8 @@ void Explode(int x, int y){
         int currX=x, currY=y, range=base[x][y];
 
         for(int r=1; r<range; ++r){
-            currX+=dx[dir];
-            currY+=dy[dir];
+            currX += dx[dir];
+            currY += dy[dir];
             if(currX<0 || currX>=n || currY<0 || currY>=n) continue;
             tmp[currX][currY]=0;
         }
@@ -80,14 +71,14 @@ void Explode(int x, int y){
 void SetPoint(){
     for(int i=0; i<n; ++i){
         for(int j=0; j<n; ++j){
-            // base 배열을 copy에 복사
+            // base 배열을 tmp에 복사
             for (int k = 0; k < n; ++k) {
                 copy(begin(base[k]), end(base[k]), begin(tmp[k]));
             }
         
             Explode(i, j);
             Drop();
-            FindNumOfPairs();
+            answer = max(answer, FindNumOfPairs()); 
         }
     }
 }
