@@ -33,7 +33,7 @@ int Rotate(int wall, int dir){
         if(wall==1) return UP; // '/'
         return DOWN; // '\'
     }
-    
+
     return -1;
 }
 
@@ -43,11 +43,15 @@ int StartGame(int x, int y, int dir){
     int dy[4]={0, -1, 0, 1};
 
     int time=1; // 구슬이 들어오는 시간 포함
+    
+    // 들어온 칸이 바로 회전칸인 경우
+    if(board[x][y]!=0) dir=Rotate(board[x][y], dir);
 
     while(true){
         int nx=x+dx[dir];
         int ny=y+dy[dir];
         if(!InRange(nx, ny)) break;
+
         if(board[nx][ny]==0){
             x=nx;
             y=ny;
@@ -60,32 +64,27 @@ int StartGame(int x, int y, int dir){
         }
         time++;
     }
+
     return time+1; // 구슬이 나가는 시간 포함
 }
 
 void Progress(){
     // Pick Start Point & Dir
-    for(int pos=0; pos<4*n; ++pos){
-        if(pos<n){
-            for(int i=0; i<n; ++i){
-                answer=max(answer, StartGame(0, i, DOWN));
-            }
-        }
-        else if(pos<2*n){
-            for(int i=0; i<n; ++i){
-                answer=max(answer, StartGame(i, n-1, LEFT));
-            }
-        }
-        else if(pos<3*n){
-            for(int i=n-1; i>=0; --i){
-                answer=max(answer, StartGame(n-1, i, UP));
-            }
-        }
-        else{
-            for(int i=n-1; i>=0; --i){
-                answer=max(answer, StartGame(i, 0, RIGHT));
-            }
-        }
+    // Down
+    for(int col=0; col<n; ++col){
+        answer=max(answer, StartGame(0, col, DOWN));
+    }
+    // Left
+    for(int row=0; row<n; ++row){
+        answer=max(answer, StartGame(row, n-1, LEFT));
+    }
+    // Up
+    for(int col=n-1; col>=0; --col){
+        answer=max(answer, StartGame(n-1, col, UP));
+    }
+    // Right
+    for(int row=n-1; row>=0; --row){
+        answer=max(answer, StartGame(row, 0, RIGHT));
     }
 }
 
