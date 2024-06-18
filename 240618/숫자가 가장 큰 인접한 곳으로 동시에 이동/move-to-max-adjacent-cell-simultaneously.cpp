@@ -10,20 +10,11 @@ bool InRange(int x, int y){
     return x>=0 && x<n && y>=0 && y<n;
 }
 
-void RemoveBall(){
-    for(int i=0; i<n; ++i){
-        for(int j=0; j<n; ++j){
-            if(cntTable[i][j]>1) cntTable[i][j]=0;
-        }
-    }
-}
-
-void Move(int x, int y){
+pair<int,int> Move(int x, int y){
     // 상(-1,0)하(1,0)좌(0,-1)우(0,1) 방향 순서대로 우선순위
     int dx[4]={-1, 1, 0, 0};
     int dy[4]={0, 0, -1, 1};
 
-    cntTable[x][y]=0;
 
     // 4방향 검사
     int maxX=x+dx[0], maxY=y+dy[0];
@@ -38,22 +29,37 @@ void Move(int x, int y){
         }
     }
 
-    // 4방향 중 가장 높은 곳으로 구슬 이동
-    cntTable[maxX][maxY]++;
+    return {maxX, maxY};
 }
 
 int Progress(){
     // t초 동안 반복
-    for(int i=0; i<t; ++i){
+    for(int time=0; time<t; ++time){
+        
+        int newStatus[21][21]={0, };
         // (i, j)칸을 살펴보면서 구슬이 있다면 이동시킴
         for(int i=0; i<n; ++i){
             for(int j=0; j<n; ++j){
-                if(cntTable[i][j]==1) Move(i, j);
+                if(cntTable[i][j]==1) {
+                    pair<int,int> movePos = Move(i, j);
+                    newStatus[movePos.first][movePos.second]++;
+                }
             }
         }
 
         // 공을 전부 이동시킨 후에 위치가 겹치는 공 삭제
-        RemoveBall();
+        for(int i=0; i<n; ++i){
+            for(int j=0; j<n; ++j){
+                if(newStatus[i][j]>1) newStatus[i][j]=0;
+            }
+        }
+
+        //newStatus->cntTable 값 복사
+        for(int i=0; i<n; ++i){
+            for(int j=0; j<n; ++j){
+                cntTable[i][j]=newStatus[i][j];
+            }
+        }
     }
 
     // 구슬이 몇 개 남았는지
