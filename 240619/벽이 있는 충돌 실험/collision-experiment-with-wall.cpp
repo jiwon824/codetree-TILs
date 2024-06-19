@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <tuple>
+#include<cstring> //memset
 
 using namespace std;
 
@@ -38,6 +39,7 @@ int Play(){
 
     // n*n초 동안 반복
     for(int time=0; time<n*n; ++time){
+
         for(int idx=0; idx<ball.size(); ++idx){
             int x, y, dir;
             tie(x, y, dir)= ball[idx];
@@ -55,6 +57,8 @@ int Play(){
             }
             ball[idx] = tie(x, y, dir);
         }
+        
+        
         Remove();
     }
 
@@ -66,15 +70,22 @@ int main() {
     for(int tc=0; tc<t; ++tc){
         // ball 벡터 비우기
         while(!ball.empty()) ball.pop_back();
+        // arr 초기화
+        for(int i=0; i<n; ++i){
+            for(int j=0; j<n; ++j){
+                arr[i][j]=0;
+            }
+        }
 
         cin >> n >> m;
         for(int i=0; i<m; ++i){
             int x, y;
             char d;
             cin >> x >> y >> d;
-            arr[x-1][y-1]=1;
             ball.push_back(make_tuple(x-1, y-1, DirToInt(d)));
+            arr[x-1][y-1]=1;
         }
+
         cout << Play() << '\n';
     }
     return 0;
