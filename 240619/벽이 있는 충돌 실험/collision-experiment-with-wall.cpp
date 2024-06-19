@@ -21,12 +21,23 @@ int DirToInt(char dir){
     return -1;
 }
 
+void PrintArr(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout << arr[i][j]<<' ';
+        }
+        cout <<'\n';
+    }
+    cout <<'\n';
+}
+
 void Remove(){
     vector<tuple<int, int, int> > newBall;
     for(int i=0; i<ball.size(); ++i){
         int x=get<0>(ball[i]);
         int y=get<1>(ball[i]);
-        if(arr[x][y]<=1) newBall.push_back(ball[i]);
+        if(arr[x][y]==1) newBall.push_back(ball[i]);
+        else arr[x][y]=0;
     }
     ball=newBall;
 }
@@ -39,7 +50,7 @@ int Play(){
 
     // n*n초 동안 반복
     for(int time=0; time<n*n; ++time){
-
+        
         for(int idx=0; idx<ball.size(); ++idx){
             int x, y, dir;
             tie(x, y, dir)= ball[idx];
@@ -57,8 +68,6 @@ int Play(){
             }
             ball[idx] = tie(x, y, dir);
         }
-        
-        
         Remove();
     }
 
