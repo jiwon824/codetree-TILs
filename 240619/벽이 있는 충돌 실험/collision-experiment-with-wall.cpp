@@ -48,8 +48,8 @@ int Play(){
     int dx[4] = {0, -1, 0, 1};
     int dy[4] = {-1, 0, 1, 0};
 
-    // n*n초 동안 반복
-    for(int time=0; time<n*n; ++time){
+    // 2*n초 동안 반복(n칸을 왕복해야 하니까)
+    for(int time=0; time<2*n; ++time){
         
         for(int idx=0; idx<ball.size(); ++idx){
             int x, y, dir;
