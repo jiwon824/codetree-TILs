@@ -9,6 +9,24 @@ int n, m, t, k;
 int arr[51][51];
 vector<vector<int> > marble;
 
+void PrintMarble(){
+    for(int i=0; i<m; i++){
+        for(int j=0; j<5; j++){
+            cout << marble[i][j] << " ";
+        }
+        cout << '\n';
+    }
+}
+
+void PrintArr(){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            cout << arr[i][j] << " ";
+        }
+        cout << '\n';
+    }
+}
+
 bool InRange(int x, int y){
     return x>=0 && x<n && y>=0 && y<n;
 }
@@ -23,7 +41,7 @@ int DirConvertToInt(char dir){
 
 // 우선순위: 속도가 빠른 구슬이 높음(같을 경우 구슬의 번호가 더 큰 구슬이 높음)
 // 구슬의 번호는 입력된 순서
-// 속력이 낮은 순서, 같다면 번호가 낮은 순으로 정렬해서 앞에서부터 없애기
+// 우선순위가 낮은 순서로 없앰
 bool cmp(vector<int> &v1, vector<int> &v2){
     if(v1[4]==v2[4]) return v1[0]<v2[0];
     return v1[4]<v2[4];
@@ -48,6 +66,7 @@ void MoveMarble(){
             arr[marble[i][1]][marble[i][2]]--;
             marble[i][1]=nx;
             marble[i][2]=ny;
+            marble[i][3]=dir;
             arr[nx][ny]++;
         }
     }
@@ -101,23 +120,9 @@ int main() {
         arr[r-1][c-1]=1;
     }
 
-    Progress();
     sort(marble.begin(), marble.end(), cmp);
-/*
-    for(int i=0; i<m; i++){
-        for(int j=0; j<5; j++){
-            cout << marble[i][j] << " ";
-        }
-        cout << '\n';
-    }
-    cout <<'\n';
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            cout << arr[i][j] << " ";
-        }
-        cout << '\n';
-    }
-*/
+    Progress();
+
     // output
     cout << m << '\n';
     return 0;
