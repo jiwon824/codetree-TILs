@@ -59,9 +59,7 @@ void MergeMarble(int x, int y){
         if(marble[i][1]==x && marble[i][2]==y){
             maxNum = max(maxNum, marble[i][0]);
             weight+=marble[i][4];
-            marble[i][0]=100; // 1<=n<=50 범위 밖의 값 설정
-            marble[i][1]=-1;
-            marble[i][2]=-1;
+            marble[i][0]=3000; // 1<=m<=n*n 범위 밖의 값 설정
         }
     }
 
