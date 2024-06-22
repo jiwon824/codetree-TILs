@@ -52,19 +52,22 @@ void MoveMarble(){
 //[방향] 합쳐진 구슬들 중 가장 큰 번호가 매겨져있는 구슬의 방향
 //[번호] 충돌이 일어난 구슬들 중 가장 큰 번호
 void MergeMarble(int x, int y){
-    int weight=0, maxNum=0;
+    int weight=0, maxNum=0, maxDir=0;
 
     //(x,y)에 있는 구슬 전부 삭제
     for(int i=0; i<marble.size(); ++i){
         if(marble[i][1]==x && marble[i][2]==y){
-            maxNum = max(maxNum, marble[i][0]);
+            if (marble[i][0] > maxNum) {
+                maxNum = marble[i][0];
+                maxDir = marble[i][3];
+            }
             weight+=marble[i][4];
             marble[i][0]=3000; // 1<=m<=n*n 범위 밖의 값 설정
         }
     }
 
     // 합쳐진 구슬 추가
-    marble.push_back({maxNum, x, y, marble[maxNum][3], weight});
+    marble.push_back({maxNum, x, y, maxDir, weight});
     m=m-arr[x][y]+1;
     arr[x][y]=1;
 
