@@ -13,7 +13,6 @@ void Simulate(int idx, int movement){
     // 종료 조건
     if(idx==n-1 || movement==0){
         if(idx==n-1) answer = min(answer, static_cast<int>(jump.size()));
-        if(idx<n-1 && movement==0) answer = -1;
         return;
     }
 
@@ -35,6 +34,7 @@ int main() {
     Simulate(0, numOfJump[0]);
 
     // output
-    cout << answer << '\n';
+    if(answer==INT_MAX) cout << "-1\n";
+    else cout << answer << '\n';
     return 0;
 }
