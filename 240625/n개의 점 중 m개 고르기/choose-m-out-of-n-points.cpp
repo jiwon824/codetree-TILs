@@ -1,42 +1,49 @@
 #include <iostream>
 #include <vector>
-#include <cmath> //pow, sqrt
+#include<climits>
+#include <cmath> //pow
 #include <tuple> //tie
 using namespace std;
 
-int n, m;
-float answer=1E+37; //FLT_MAX
+int n, m, answer=INT_MAX;
 vector<pair<int,int> > point;
 vector<pair<int,int> > selected;
 bool visited[21] = {false, };
 
-float FindMaxDist(){
-    float maxDist=0;
+int FindMaxDist(){
+    int maxDist=0;
+    //cout << "findmaxdist\n";
+    //for(size_t i=0; i<selected.size(); i++){
+    //    cout <<selected[i].first << " " << selected[i].second<<'\n';
+    //}
     for(size_t i=0; i<selected.size(); ++i){
         for(size_t j=i+1; j<selected.size(); ++j){
             int p1X, p1Y, p2X, p2Y;
             tie(p1X, p1Y) = selected[i];
             tie(p2X, p2Y) = selected[j];
-            float dist = sqrt(pow(p1X-p2X, 2)+pow(p1Y-p2Y, 2));
+            int dist = pow(p1X-p2X, 2)+pow(p1Y-p2Y, 2);
             maxDist=max(maxDist, dist);
         }
     }
+    //cout << maxDist <<'\n';
     return maxDist;
 }
 
-void Choose(int idx, int numOfChosen){
+void Choose(int numOfChosen){
     // 종료 조건
     if(numOfChosen==m){
-        answer=min(answer, FindMaxDist());
+        answer = min(answer, FindMaxDist());
         return;
     }
 
     // 재귀 호출
-    for(size_t i=idx; i<point.size(); ++i){
+    for(size_t i=0; i<point.size(); ++i){
         if(visited[i]) continue;
+        
         selected.push_back(point[i]);
         visited[i]=true;
-        Choose(idx+i, numOfChosen+1);
+        Choose(numOfChosen+1);
+
         selected.pop_back();
         visited[i]=false;
     }
@@ -50,9 +57,8 @@ int main() {
         point.push_back({x, y});
     }
 
-    Choose(0, 0);
+    Choose(0);
 
-    // 최소 거리에 제곱한 값을 출력
-    cout << answer*answer <<'\n';
+    cout << answer <<'\n';
     return 0;
 }
