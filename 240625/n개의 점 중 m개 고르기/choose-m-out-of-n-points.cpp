@@ -12,24 +12,20 @@ bool visited[21] = {false, };
 
 int FindMaxDist(){
     int maxDist=0;
-    //cout << "findmaxdist\n";
-    //for(size_t i=0; i<selected.size(); i++){
-    //    cout <<selected[i].first << " " << selected[i].second<<'\n';
-    //}
     for(size_t i=0; i<selected.size(); ++i){
         for(size_t j=i+1; j<selected.size(); ++j){
-            int p1X, p1Y, p2X, p2Y;
-            tie(p1X, p1Y) = selected[i];
-            tie(p2X, p2Y) = selected[j];
-            int dist = pow(p1X-p2X, 2)+pow(p1Y-p2Y, 2);
+            int x1, y1, x2, y2;
+            tie(x1, y1) = selected[i];
+            tie(x2, y2) = selected[j];
+            // 두점 사이의 거리(출력할 때 제곱해야 하니까 sqrt 생략)
+            int dist = pow(x1-x2, 2)+pow(y1-y2, 2);
             maxDist=max(maxDist, dist);
         }
     }
-    //cout << maxDist <<'\n';
     return maxDist;
 }
 
-void Choose(int numOfChosen){
+void Choose(int idx, int numOfChosen){
     // 종료 조건
     if(numOfChosen==m){
         answer = min(answer, FindMaxDist());
@@ -37,12 +33,12 @@ void Choose(int numOfChosen){
     }
 
     // 재귀 호출
-    for(size_t i=0; i<point.size(); ++i){
+    for(size_t i=idx; i<point.size(); ++i){
         if(visited[i]) continue;
         
         selected.push_back(point[i]);
         visited[i]=true;
-        Choose(numOfChosen+1);
+        Choose(i+1, numOfChosen+1);
 
         selected.pop_back();
         visited[i]=false;
@@ -57,7 +53,7 @@ int main() {
         point.push_back({x, y});
     }
 
-    Choose(0);
+    Choose(0, 0);
 
     cout << answer <<'\n';
     return 0;
