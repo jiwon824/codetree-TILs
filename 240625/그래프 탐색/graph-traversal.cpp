@@ -27,6 +27,7 @@ int main() {
 
     DFS(1);
 
-    cout << answer-1 <<'\n';
+    if(answer!=0) answer-=1;
+    cout << answer <<'\n';
     return 0;
 }
