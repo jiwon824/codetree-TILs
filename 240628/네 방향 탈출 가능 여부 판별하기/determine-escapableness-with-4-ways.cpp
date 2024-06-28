@@ -13,7 +13,7 @@ bool InRange(int x, int y){
 
 bool CanGo(int x, int y){
     if(!InRange(x, y)) return false;
-    if(arr[x][y]==0||visited[x][y]) return false;
+    if(arr[x][y]==0 || visited[x][y]) return false;
     return true;
 }
 
@@ -24,22 +24,21 @@ void BFS(){
 
     queue<pair<int, int> > q;
     q.push({0, 0});
+    visited[0][0] = true;
     while(!q.empty()){
-        int size = q.size();
-        for(int qIdx=0; qIdx<size; ++qIdx){
-            int x=q.front().first, y=q.front().second;
-            q.pop();
-            if(x==n-1 && y==m-1) {
-                answer=1;
-                return;
-            }
+        int x=q.front().first, y=q.front().second;
+        q.pop();
 
-            visited[x][y] = true;
-            for(int dir=0; dir<4; ++dir){
-                int nx=x+dx[dir], ny=y+dy[dir];
-                if(CanGo(nx, ny)){
-                    q.push({nx, ny});
-                }
+        if(x==n-1 && y==m-1) {
+            answer=1;
+            return;
+        }
+
+        for(int dir=0; dir<4; ++dir){
+            int nx=x+dx[dir], ny=y+dy[dir];
+            if(CanGo(nx, ny)){
+                visited[nx][ny] = true;
+                q.push({nx, ny});
             }
         }
     }
