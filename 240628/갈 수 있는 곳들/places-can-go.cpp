@@ -36,7 +36,6 @@ void BFS(){
     
     while(!q.empty()){
         int x=q.front().first, y=q.front().second;
-        visited[x][y]=true;
         q.pop();
         
         for(int dir=0; dir<4; dir++){
@@ -60,6 +59,7 @@ int main() {
     for(int i=0; i<k; ++i){
         int r, c;
         cin >> r >> c;
+        visited[r-1][c-1] = true;
         q.push({r-1, c-1});
     }
 
