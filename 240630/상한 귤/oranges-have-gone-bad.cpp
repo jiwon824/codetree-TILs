@@ -34,15 +34,13 @@ void BFS(){
     int dy[4]={0, 0, -1, 1};
 
     queue<tuple<int,int,int> >q;
-    int time=0;
     // 상한귤 좌표를 queue에 담기
     for(size_t i=0; i<rottenPos.size(); ++i){
         int x=rottenPos[i].first, y=rottenPos[i].second;
-        q.push({x, y, time});
+        q.push({x, y, 0});
         answer[x][y]=0;
         visited[x][y]=true;
     }
-    time++;
 
     while(!q.empty()){
         int x, y, t;
