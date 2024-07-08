@@ -16,7 +16,7 @@ int main() {
     //init
     dp[0]=0;
     for(int i=1; i<=m; ++i){
-        dp[i]=200;
+        dp[i]=20000;
     }
 
     // solution
@@ -28,7 +28,7 @@ int main() {
     }
 
     for(int i=0; i<=m; i++){
-        if(dp[i]>=200) dp[i]=-1;
+        if(dp[i]>=20000) dp[i]=-1;
     }
 
     // output
