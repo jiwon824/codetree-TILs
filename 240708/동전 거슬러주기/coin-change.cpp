@@ -1,5 +1,4 @@
 #include <iostream>
-#include <climits>
 
 using namespace std;
 
@@ -17,18 +16,21 @@ int main() {
     //init
     dp[0]=0;
     for(int i=1; i<=m; ++i){
-        dp[i]=INT_MAX;
+        dp[i]=200;
     }
 
     // solution
     for(int i=1; i<=m; ++i){
         for(int j=0; j<n; ++j){
-            if(i-coin[j]<0) dp[i]=-1;
+            if(i-coin[j]<0) continue;
             dp[i]=min(dp[i], dp[i-coin[j]]+1);
         }
-        if(dp[i]==0) dp[i]=-1; 
     }
-    
+
+    for(int i=0; i<=m; i++){
+        if(dp[i]>=200) dp[i]=-1;
+    }
+
     // output
     cout << dp[m] << '\n';
     
