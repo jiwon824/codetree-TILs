@@ -2,9 +2,9 @@
 using namespace std;
 
 int n;
-int red[101];
-int blue[101];
-int dp[101][101]; // dp[i][j]: i번째 인덱스까지 고려했을 때 red를 j개 선택했다면 그때의 최대합
+int red[201];
+int blue[201];
+int dp[201][101]; // dp[i][j]: i번째 인덱스까지 고려했을 때 red를 j개 선택했다면 그때의 최대합
 
 void Init(){
     for(int i=0; i<n; ++i){
