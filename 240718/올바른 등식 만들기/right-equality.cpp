@@ -19,7 +19,7 @@ int main() {
     
     // solution
     dp[0][OFFSET+num[0]] = 1;
-    dp[0][OFFSET-num[0]] = 1;
+    dp[0][OFFSET-num[0]] += 1; // 0일 경우 -0과 +0이 다른 경우의 수이기 때문에+=1
     for (int idx = 1; idx < n; ++idx) {
         for (int sum = -20; sum <= 20; ++sum) {
             int offsetNum=sum+OFFSET;
