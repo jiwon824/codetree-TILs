@@ -28,11 +28,12 @@ int main() {
                 if(i+1<n && j+1<n) discardScore=dp[i+1][j+1];
                 dp[i][j]=max(playScore, discardScore);
             }
-            else{
+            else if (a[i]<b[j]){
                 if(i+1<n) playScore=dp[i+1][j];
                 if(i+1<n && j+1<n) discardScore=dp[i+1][j+1];
                 dp[i][j] = max(playScore, discardScore);
             }
+            else dp[i][j] = (i+1<n && j+1<n) ? dp[i+1][j+1] : 0;
         }
     }
 
