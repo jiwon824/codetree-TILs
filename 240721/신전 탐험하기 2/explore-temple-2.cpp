@@ -38,8 +38,6 @@ int main() {
         // j는 i층에서 들어갈 방, k는 i-1층에서 들어갔던 방
         for(int j=0; j<3; ++j){
             for (int k=0; k<3; ++k) {
-                // i층과 i-1층의 방이 겹치면 안 됨
-                if(j==k) continue;
                 // j방을 선택하는 경우 이전 층에서는 (j+1)%3 || (j+2)%3 (j를 제외한 2개의 방을 의미) 선택 가능
                 if(dp[i-1][(j+1)%3][k]!=-1)
                     dp[i][j][k]=max(dp[i][j][k], dp[i-1][(j+1)%3][k]+treasure[i][j]);
