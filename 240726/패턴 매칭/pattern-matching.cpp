@@ -30,11 +30,11 @@ int main() {
 
             // 패턴(j-1번째)이 '*'인 경우
             if(pattern[j-1]=='*'){
+                // *이 0번 매칭
+                dp[i][j] = dp[i][j-2];
                 // *이 1번 이상 매칭
                 // =문자열(i-1번째)과 패턴(j-2번째)이 일치 || 패턴(j-2번째) '.'
-                if(str[i-1]==pattern[j-2] || pattern[j-2]=='.') dp[i][j] = dp[i-1][j];
-                // *이 0번 매칭
-                else dp[i][j] = dp[i][j-2];
+                if(str[i-1]==pattern[j-2] || pattern[j-2]=='.') dp[i][j] = dp[i][j] || dp[i-1][j];
             }
         }
     }
