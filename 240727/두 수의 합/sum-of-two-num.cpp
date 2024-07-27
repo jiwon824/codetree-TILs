@@ -25,7 +25,6 @@ int main() {
         if(num==findNum){
             // 3개에서 2개 뽑는 경우 (3*2)/2
             answer+= (it->second * (it->second-1));
-            cout << "same\n";
         }
         else{
             // 찾는 수가 있는 경우
