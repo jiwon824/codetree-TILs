@@ -49,7 +49,7 @@ int main() {
     BFS(startX-1, startY-1);
 
     // output
-    int answer=(dist[endX-1][endY-1]-1>0) ? dist[endX-1][endY-1]-1:-1;
+    int answer=(dist[endX-1][endY-1]-1>=0) ? dist[endX-1][endY-1]-1:-1;
     cout << answer <<'\n';
     return 0;
 }
