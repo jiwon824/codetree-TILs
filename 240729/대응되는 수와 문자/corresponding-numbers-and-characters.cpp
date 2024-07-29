@@ -4,6 +4,7 @@
 using namespace std;
 
 int n, m;
+string arr[100001];
 unordered_map<string, int> um;
 
 int main() {
@@ -13,6 +14,7 @@ int main() {
         string str;
         cin >> str; 
         um[str]=i+1;
+        arr[i]=str;
     }
 
     // m개의 숫자(value) 혹은 문자열(key)에 대응되는 짝 출력
@@ -22,11 +24,7 @@ int main() {
         if('a'<=inspect[0] && inspect[0]<='z')
             cout << um.find(inspect)->second << '\n';
         else{
-            for(auto it=um.begin(); it!=um.end(); it++){
-                if(to_string(it->second)==inspect){
-                    cout << it->first << '\n';
-                }
-            }
+            cout << arr[stoi(inspect)-1] << '\n';
         }
     }
     
