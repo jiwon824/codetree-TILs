@@ -9,16 +9,15 @@ unordered_map<string, int> um;
 
 int main() {
     cin >> n;
+
+    int answer=0;
     for(int i=0; i<n; ++i){
         string str;
         cin >> str;
         um[str]++;
+        answer=max(answer, um[str]);
     }
 
-    int answer=0;
-    for(auto it=um.begin(); it!=um.end(); ++it){
-        answer=max(answer, it->second);
-    }
     cout << answer << '\n';
     return 0;
 }
