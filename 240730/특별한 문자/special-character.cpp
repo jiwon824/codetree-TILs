@@ -17,11 +17,15 @@ int main() {
     }
     
     // output
+    bool noneFlag = true;
     for(int i=0; i<str.length(); ++i){
         if(um[str[i]]==1){
             cout << str[i] << '\n';
+            noneFlag = false;
             break;
         }
     }
+    if(noneFlag) cout << "None\n";
+    
     return 0;
 }
