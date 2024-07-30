@@ -15,7 +15,7 @@ int main() {
     }
 
     // 남아있는 y값 합 출력
-    int answer=0;
+    long long answer=0;
     for(auto it=um.begin(); it!=um.end(); ++it){
         answer+=it->second;
     }
