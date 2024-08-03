@@ -1,31 +1,30 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
+
+int arr[100001];
+int prefix_sum[100001];
 
 int main() {
     // input
     int n, k, b;
     cin >> n >> k >> b;
-    vector<int> is_missing(n+1, 0);
+
     for(int i=0; i<b; ++i){
         int num;
         cin >> num;
-        is_missing[num]=1;
+        arr[num]=1;
     }
 
     // solution
-    int curr =0;
-    for(int i=1; i<=k; ++i){
-        curr+=is_missing[i];
+    for(int i=1; i<=n; ++i){
+        prefix_sum[i]=prefix_sum[i-1]+arr[i];
     }
-    int answer=curr;
-    for (int i=2; i<=n-k+1; ++i) {
-        curr-=is_missing[i-1];
-        curr+=is_missing[i+k-1];
-        answer = min(answer, curr);
+    int answer=100001;
+    for(int i=k; i<=n; ++i){
+        answer= min(answer, prefix_sum[i]-prefix_sum[i-k]);
     }
-
+    
     // output
     cout << answer << '\n';
     return 0;
