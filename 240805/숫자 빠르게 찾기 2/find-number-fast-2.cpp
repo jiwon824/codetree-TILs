@@ -18,15 +18,9 @@ int main() {
     for(int i=0; i<m; ++i){
         int num;
         cin >> num;
-        bool isExist = false;
-        for(auto it=s.begin(); it!=s.end(); ++it){
-            if(*it>=num){
-                isExist=true;
-                cout << *it << '\n';
-                break;
-            }
-        }
-        if(!isExist) cout << "-1\n";
+        auto it = s.lower_bound(num);
+        if(it==s.end()) cout << "-1\n";
+        else cout << *it << '\n';
     }
 
     return 0;
