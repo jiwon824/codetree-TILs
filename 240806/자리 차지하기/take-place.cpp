@@ -4,49 +4,33 @@
 
 using namespace std;
 
-// return: Add 성공 여부
-bool Add(set<int> &s, int num){
-    // num이하의 수가 없다면 s에 num삽입
-    if(*s.lower_bound(num)!=num) {
-        s.insert(num);
-        return true;
-    }
-    if(*s.lower_bound(num)==num) {
-        while(*s.lower_bound(num)==num){
-            num-=1;
-        }
-
-        if(num>0) {
-            s.insert(num);
-            return true;
-        }
-        else return false;
-    }
-
-    return false;
-} 
-
 int main() {
     int n, m;
     cin >> n >> m;
 
     vector<int> info(n);
     for(int i=0; i<n; ++i){
-        int num;
-        cin >> num;
-        info[i]=num;
+        cin >> info[i];
     }
 
     // solution
-    // 1번 사람부터 순서대로 해당 규칙에 맞춰 앉기 시작하며, 최초로 앉지 못하는 사람이 생기면 종료
+    // [초기화] m개의 비어있는 의자
     set<int> s;
+    for(int i=1; i<=m; ++i){
+        s.insert(i);
+    }
+
+    // 1번 사람부터 순서대로 해당 규칙에 맞춰 앉기 시작하며, 최초로 앉지 못하는 사람이 생기면 종료
     for(size_t i=0; i<info.size(); ++i){
         int num = info[i];
-        bool isSuccess = Add(s, num);
-        if(!isSuccess) break;
+        
+        auto it = s.upper_bound(num);
+
+        if(it==s.begin()) break;
+        s.erase(prev(it));
     }
     
-    cout << s.size() << '\n';
-
+    // 최대로 앉힐 수 있는 사람의 수
+    cout << m-s.size() << '\n';
     return 0;
 }
