@@ -24,7 +24,8 @@ int main() {
         pq.pop();
         if(num1!=num2) pq.push(num1-num2);
     }
-
-    cout << pq.top() << '\n';
+    
+    if(pq.empty()) cout << -1 <<'\n';
+    else cout << pq.top() << '\n';
     return 0;
 }
