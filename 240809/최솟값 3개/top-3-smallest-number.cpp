@@ -12,14 +12,14 @@ int main() {
         int num;
         cin >> num;
         pq.push(-num);
-        
+
         if(pq.size()<3) cout << -1 <<'\n';
         else{
-            int a = -pq.top();
+            long long a = -pq.top();
             pq.pop();
-            int b = -pq.top();
+            long long b = -pq.top();
             pq.pop();
-            int c = -pq.top();
+            long long c = -pq.top();
             pq.pop();
 
             cout << a*b*c <<'\n';
