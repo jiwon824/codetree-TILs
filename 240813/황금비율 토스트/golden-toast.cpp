@@ -26,7 +26,7 @@ int main() {
             if(it!=l.end()) it++;
         }
         else if(command=='D'){
-            l.erase(it);
+            if(it!=l.end()) it=l.erase(it);
         }
         else if(command=='P'){
             // 가리키는 위치에 
