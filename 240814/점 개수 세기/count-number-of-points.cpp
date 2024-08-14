@@ -28,15 +28,12 @@ int main() {
         int a, b;
         cin >> a >> b;
         
-        if(a>b){
-            cout << 0 <<'\n';
-            continue;
-        }
-
         int start = *points.lower_bound(a);
         int end = *prev(points.upper_bound(b));
 
-        cout << mapper[end]-mapper[start]+1 << '\n';
+        if(end<a) cout << 0 <<'\n';
+        else if(b<start) cout << 0 <<'\n';
+        else cout << mapper[end]-mapper[start]+1 << '\n';
     }
 
     return 0;
