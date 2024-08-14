@@ -27,8 +27,15 @@ int main() {
     while(q--){
         int a, b;
         cin >> a >> b;
+        
+        if(a>b){
+            cout << 0 <<'\n';
+            continue;
+        }
+
         int start = *points.lower_bound(a);
         int end = *prev(points.upper_bound(b));
+
         cout << mapper[end]-mapper[start]+1 << '\n';
     }
 
