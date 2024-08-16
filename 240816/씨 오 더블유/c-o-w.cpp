@@ -3,8 +3,8 @@
 using namespace std;
 
 char str[MAXLEN];
-int lC[MAXLEN];// 왼쪽에서 부터 C의 개수
-int rW[MAXLEN];// 오른쪽에서부터 W의 개수
+long long lC[MAXLEN];// 왼쪽에서 부터 C의 개수
+long long rW[MAXLEN];// 오른쪽에서부터 W의 개수
 
 int main() {
     int n;
@@ -25,7 +25,7 @@ int main() {
     }
 
     // answer
-    int answer=0;
+    long long answer=0;
     for(int i=1; i<n-1; ++i){
         if(str[i]=='O'){
             answer+=lC[i-1]*rW[i+1];
