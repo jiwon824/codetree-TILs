@@ -8,7 +8,7 @@ int main() {
     string a;
     cin >> a;
     
-    int answer=0;
+    long long answer=0;
     for(int i=1; i<a.length(); ++i){
         if(a[i-1]=='(' && a[i]=='(') opening[i]=opening[i-1]+1;
         else opening[i]=opening[i-1];
