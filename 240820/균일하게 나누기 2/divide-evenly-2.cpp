@@ -2,41 +2,29 @@
 #include <vector>
 #include <algorithm>
 
-#define MAX_POS 1000
-
+#define MAX_POS 1001
 using namespace std;
 
 int n;
-vector<pair<int,int> > points;
+vector<pair<int, int>> points;
+int prefixSum[MAX_POS][MAX_POS];
 
-bool cmp(pair<int,int> &a, pair<int,int> &b){
-    return a.second > b.second;
+void makePrefixSum(){
+    // points 좌표 체크
+    for (const auto& p : points) {
+        prefixSum[p.first][p.second]++;
+    }
+
+    // prefixSum 배열 채우기
+    for (int i=1; i<MAX_POS; ++i) {
+        for (int j=1; j<MAX_POS; ++j) {
+            prefixSum[i][j] += prefixSum[i-1][j] + prefixSum[i][j-1] - prefixSum[i-1][j-1];
+        }
+    }
 }
 
-int CntPoint(int midX, int midY){
-    // [0][0]:2 [0][1]:1, [1][0]:3, [1][1]:4
-    int quadrant[2][2]={0, };
-    for(const auto& e: points){
-        // x=i, y=j일 때 점들이 어느 사분면에 속하는지 나누기
-        if(e.first<midX){
-            if(e.second>midY) quadrant[0][0]++;
-            else quadrant[1][0]++;
-        }
-        else{
-            if(e.second>midY) quadrant[0][1]++;
-            else quadrant[1][1]++;
-        } 
-    }
-
-    // 4개의 사분면 중 가장 점이 많은 사분면의 점개수
-    int numOfPoints=0;
-    for(int i=0; i<2; ++i){
-        for(int j=0; j<2; ++j){
-            numOfPoints = max(numOfPoints, quadrant[i][j]);
-        }
-    }
-
-    return numOfPoints;
+int getPointsInRegion(int x1, int y1, int x2, int y2) {
+    return prefixSum[x2][y2] - prefixSum[x1-1][y2] - prefixSum[x2][y1-1] + prefixSum[x1-1][y1-1];
 }
 
 int main() {
@@ -45,28 +33,29 @@ int main() {
     for(int i=0; i<n; ++i){
         int x, y;
         cin >> x >> y;
-        points.push_back({x,y});
+        points.push_back({x, y});
     }
-    
-    // 정렬해서 중위값에 선을 그으면 안 되나?
-    sort(points.begin(), points.end());
-    int midX = points[n/2].first;
-    sort(points.begin(), points.end(), cmp);
-    int midY = points[n/2].second;
-    
 
-    int answer=2e9;
-    for(int i=midX-1; i<=midX+1; ++i){
-        if(i==midX) continue;
-        for(int j=midY-1; j<=midY+1; ++j){
-            if(j==midY) continue;
-            int numOfPoints=CntPoint(i, j);    
-            answer = min(answer, numOfPoints);
+    // prefixSum 배열 채우기
+    makePrefixSum();
+    
+    int minMaxPoints = 2e9; // int max
+    // x, y는 짝수이므로 2씩 더해줌
+    for (int x=2; x<MAX_POS; x+=2) {
+        for (int y=2; y<MAX_POS; y+=2) {
+
+            int q1 = getPointsInRegion(1, y+1, x-1, MAX_POS-1);
+            int q2 = getPointsInRegion(x, y+1, MAX_POS-1, MAX_POS-1);
+            int q3 = getPointsInRegion(1, 1, x-1, y);
+            int q4 = getPointsInRegion(x, 1, MAX_POS-1, y);
+
+            //C++11부터 이렇게 쓸 수 있어짐
+            int maxQuadrant = max({q1, q2, q3, q4});
+            minMaxPoints = min(minMaxPoints, maxQuadrant);
         }
     }
 
-    // output
-    cout << answer << '\n';
+    cout << minMaxPoints << '\n';
 
     return 0;
 }
