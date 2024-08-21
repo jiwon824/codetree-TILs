@@ -24,6 +24,7 @@ int main() {
             long long tmp = prefixSum[i]-prefixSum[j];
             if(tmp%7==0){
                 answer = max(answer, i-j);
+                break; // 이것보다 짧은 구간은 볼 필요 없어짐
             }
         }
     }
