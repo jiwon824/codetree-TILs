@@ -18,12 +18,14 @@ int main() {
     sort(num, num+n);
 
     int r=n-1, answer=0;
-    for(int l=0; l<=r; ++l){
-        while(r>0 && num[l]+num[r]>k){
-            r--;
-        }
+    for(int l=0; l<r; ){
+        int sum = num[l]+num[r];
 
-        answer+=(r-l);
+        if(sum<=k) {
+            answer+=(r-l);
+            l++;
+        }
+        else r--;
     }
     cout << answer << '\n';
     return 0;
