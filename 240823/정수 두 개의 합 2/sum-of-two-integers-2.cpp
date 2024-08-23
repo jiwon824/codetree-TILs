@@ -18,11 +18,11 @@ int main() {
     sort(num, num+n);
 
     int r=n-1, answer=0;
-    for(int l=0; l<r; ++l){
+    for(int l=0; l<=r; ++l){
         while(r>0 && num[l]+num[r]>k){
             r--;
         }
-        
+
         answer+=(r-l);
     }
     cout << answer << '\n';
