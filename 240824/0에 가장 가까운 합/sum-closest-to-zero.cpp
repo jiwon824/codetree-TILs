@@ -19,14 +19,14 @@ int main() {
     // answer=min(answer, abs(a+b))
     int r=n-1, answer=2e9;
     for(int l=0; l<n; ++l){
-        if(r <= l) break;
-        answer = min(answer, abs(num[l]+num[r]));
+        if(l<r) answer = min(answer, abs(num[l]+num[r]));
 
         // a[i]+a[j]>0은 a[j]가 엄청 크다는 의미 a[i]=-1인데 a[j]=1000000 같은 경우
-        while(r-1>=l && num[l]+num[r]>0){
+        while(r-1>l && num[l]+num[r]>0){
             r--;
             answer = min(answer, abs(num[l]+num[r]));
         }
+        if(r < l) break;
     }
     cout << answer << '\n';
     return 0;
