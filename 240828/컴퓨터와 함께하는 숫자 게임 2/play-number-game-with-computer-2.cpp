@@ -1,4 +1,5 @@
 #include <iostream>
+#include <climits>
 using namespace std;
 
 long long m; // 1 ≤ m ≤ pow(10, 18)
@@ -24,10 +25,10 @@ int Search(int target){
 int main() {
     cin >> m >> a >> b;
     // 컴퓨터가 처음 a이상 b이하인 수 만을 선택
-    int minAns = 2e9, maxAns=0;
+    long long minAns = LLONG_MAX, maxAns=LLONG_MIN;
     for(int i=a; i<=b; ++i){
         // 컴퓨터가 고른 수가 i라고 할 때 최소 턴과 최대 턴수
-        int numOfTurn=Search(i);
+        long long numOfTurn=Search(i);
         minAns = min(minAns, numOfTurn);
         maxAns = max(maxAns, numOfTurn);
     }
