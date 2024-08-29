@@ -9,7 +9,7 @@ int main() {
     while(left<=right){
         long long mid=(left+right)/2;
 
-        int cnt=0;
+        long long cnt=0;
         for(int i=1; i<=n; ++i){
             cnt+=min(n, mid/i);
         }
