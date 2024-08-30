@@ -33,12 +33,12 @@ int main() {
     // 이분 탐색을 위해 정렬
     sort(points, points+n);
 
-    int left=points[0], right=points[n-1], answer=0;
+    int left=1, right=points[n-1]-points[0], answer=0;
     while(left<=right){
         int mid = (left+right)/2;
         if(IsPossible(mid)){
             left=mid+1;
-            answer=max(answer, mid);
+            answer=mid;
         }
         else{
             right=mid-1;
