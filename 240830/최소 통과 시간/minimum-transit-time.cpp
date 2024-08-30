@@ -24,7 +24,7 @@ int main() {
 
     sort(t,t+m);
     
-    long long left=1, right=t[m-1]*n, answer=t[m-1]*n;
+    long long left=1, right=t[m-1]*(long long)n, answer=t[m-1]*(long long)n;
     while(left<=right){
         long long mid = (left+right)/2;
         if(IsPossible(mid)){
