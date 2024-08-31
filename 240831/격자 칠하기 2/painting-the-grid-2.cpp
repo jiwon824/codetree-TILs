@@ -6,6 +6,7 @@ const int MAX_N = 101;
 
 int n, half;
 int arr[MAX_N][MAX_N];
+bool visited[MAX_N][MAX_N]={false, };
 
 bool InRange(int x, int y){
     return x>=0 && x<n && y>=0 && y<n;
@@ -18,7 +19,6 @@ int Bfs(int startX, int startY, int d){
     int dy[4] ={0, 0, -1, 1};
 
     queue<pair<int,int>> q;
-    bool visited[MAX_N][MAX_N]={false, };
     
     q.push({startX, startY});
     visited[startX][startY]=true;
@@ -43,21 +43,26 @@ int Bfs(int startX, int startY, int d){
 
 // 색칠된 칸이 전체 칸의 반 이상이라면 true 아니면 false 반환
 bool IsPossible(int d){
+    fill(&visited[0][0], &visited[0][0] + sizeof(visited), false);
     // 시작 위치 정하기
     for(int i=0; i<n; ++i){
         for(int j=0; j<n; ++j){
             // 인접한 칸으로 이동하여 색칠하기
-            int cnt = Bfs(i, j, d);
-            if(cnt>=half) return true;
+            if(!visited[i][j]){
+                int cnt = Bfs(i, j, d);
+                if(cnt>=half) return true;
+            }
         }
     }
     return false;
 }
 
 int main() {
+    // 입출력 최적화
+    ios::sync_with_stdio(false); cin.tie(nullptr);
     // input
     cin >> n;
-    half = ((n*n)%2==0) ? n*n/2: n*n/2+1; // 전체 칸 수가 홀수라면 전체 칸의 반은 반올림
+    half=(n*n+1)/2; // 전체 칸 수가 홀수라면 전체 칸의 반은 반올림
     for(int i=0; i<n; ++i){
         for(int j=0; j<n; ++j){
             cin >> arr[i][j];
