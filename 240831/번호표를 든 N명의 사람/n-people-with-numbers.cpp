@@ -16,10 +16,17 @@ bool IsPossible(int capacity){
     int time=0;
     for(int i=0; i<n; ++i){
         if(pq.size()==capacity){
-            time+=pq.top();
+            time=pq.top();
             pq.pop();
         }
-        pq.push(stay_time[i]);
+        // 4 7 8 6 4 에서 k=4라고 하면 4가 나갈 때 7, 8의 남은 시간은 3, 4가 된다.
+        // 하지만 pq의 값을 수정할 수 없으므로(아마도) 다음에 들어올 값에 4를 더하는 방식으로 구현
+        pq.push(stay_time[i]+time);
+    }
+
+    while(!pq.empty()){
+        time=pq.top();
+        pq.pop();
     }
     return time<=t_max;
 }
