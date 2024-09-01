@@ -1,6 +1,5 @@
 #include <iostream>
 #include <algorithm>
-
 using namespace std;
 
 const int MAX_N = 50001;
@@ -8,38 +7,52 @@ const int MAX_N = 50001;
 int n, k;
 int arr[MAX_N];
 
-int Solution(){
-    int max_cnt=0;
-    // i에서 시작할 때 group1과 group2
-    for(int i=0; i<n; ++i){
-        // group1 [i, right]
-        int right=i;
-        while(right<n && arr[right]-arr[i]<=k){
-            right++;
-        }
-        int group1 = right-i;
+int Solution() {
+    int l[MAX_N], r[MAX_N];
 
-        // group2 [left, right] left<=right<n
-        int group2=0;
-        for(int left=right; left<n; ++left){
-            while(right<n && arr[right]-arr[left]<=k){
-                right++;
-            }
-            group2 = max(group2, right-left);
+    // l 배열
+    int max_num = 0;
+    int i = 0;
+    for (int j=0; j<n; j++) {
+        // 구간 내 차이가 K를 넘는다면 i를 오른쪽으로 이동
+        while (i<n && arr[j]-arr[i] > k) {
+            i++;
         }
-        max_cnt = max(max_cnt, group1+group2);
+
+        // 현재 구간 [i, j]의 최대 크기 갱신
+        max_num = max(max_num, j-i+1);
+        l[j] = max_num;
     }
+
+    // R 배열
+    max_num=0;
+    int j=n-1;
+    for (int i=n-1; i>=0; i--) {
+        // 구간 내 차이가 K를 넘는다면 j를 왼쪽으로 이동
+        while (j>0 && arr[j]-arr[i] > k) {
+            j--;
+        }
+
+        // 현재 구간 [i, j]의 최대 크기 갱신
+        max_num = max(max_num, j-i+1);
+        r[i] = max_num;
+    }
+
+    int max_cnt = l[n-1];
+    for (int i=0; i<n-1; ++i) {
+        max_cnt = max(max_cnt, l[i] + r[i+1]);
+    }
+
     return max_cnt;
 }
 
 int main() {
-    // input
     cin >> n >> k;
-    for(int i=0; i<n; ++i){
+    for (int i = 0; i < n; ++i) {
         cin >> arr[i];
-    }   
+    }
 
-    sort(arr, arr+n);
+    sort(arr, arr + n);
 
     cout << Solution() << '\n';
     return 0;
