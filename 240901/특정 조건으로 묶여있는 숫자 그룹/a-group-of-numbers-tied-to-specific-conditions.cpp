@@ -1,13 +1,52 @@
 #include <iostream>
 #include <algorithm>
+
 using namespace std;
 
 const int MAX_N = 50001;
 
 int n, k;
 int arr[MAX_N];
-int l[MAX_N];
-int r[MAX_N];
+
+int Solution(){
+    // 그룹에 속하는 숫자의 개수
+    int group1=0, group2=0;
+    // 1. group1이 최대 일 경우 구하기
+    int left=0, right=0;
+    // 최대인 구간의 idx 정렬되어 있으므로 first에 최소값 second에 최대값이 들어감
+    pair<int, int> max_range = {0, 0};
+    
+    for (left = 0; left < n; ++left) {
+        while (right < n && arr[right] - arr[left] <= k) {
+            right++;
+        }
+        if (right - left > group1) {
+            group1 = right - left;
+            max_range = {left, right - 1};
+        }
+    }
+
+    // 2. group2가 최대 일 경우 구하기
+    // 2-1. max_range.first 이전에서 찾기
+    right = 0;
+    for (left = 0; left < max_range.first; ++left) {
+        while (right < max_range.first && arr[right] - arr[left] <= k) {
+            right++;
+        }
+        group2 = max(group2, right - left);
+    }
+    
+    // 2-2. max_range.second 이후에서 찾기
+    right = max_range.second + 1;
+    for (left = max_range.second + 1; left < n; ++left) {
+        while (right<n && arr[right]-arr[left]<=k) {
+            right++;
+        }
+        group2 = max(group2, right - left);
+    }
+
+    return group1+group2;
+}
 
 int main() {
     // input
@@ -18,40 +57,6 @@ int main() {
 
     sort(arr, arr+n);
 
-    // l배열 prefix_sum
-    // 왼쪽부터 k 차이가 k를 넘지 않으면 더하기
-    int min_val =arr[0];
-    l[0]=1;
-    for(int i=1; i<n; ++i){
-        // arr[i]가 항상 최대값이므로 min_val과 차이가 k를 넘는지 보면 됨
-        if(arr[i]-min_val<=k){
-            l[i]=l[i-1]+1;
-        }
-        else{
-            l[i]=1;
-            min_val=arr[i];
-        }
-    }
-
-    // r배열 prefix_sum
-    int max_val =arr[n-1];
-    r[n-1]=1;
-    for(int i=n-2; i>=0; --i){
-        // arr[i]가 항상 최대값이므로 min_val과 차이가 k를 넘는지 보면 됨
-        if(max_val-arr[i]<=k){
-            r[i]=r[i+1]+1;
-        }
-        else{
-            r[i]=1;
-            max_val=arr[i];
-        }
-    }
-    
-    int answer=0;
-    for(int i=0; i<n; i++){
-        answer = max(answer, l[i]+r[i]);
-    }
-    if(n==1) cout << 1 << '\n';
-    else cout << answer << '\n';
+    cout << Solution() << '\n';
     return 0;
 }
