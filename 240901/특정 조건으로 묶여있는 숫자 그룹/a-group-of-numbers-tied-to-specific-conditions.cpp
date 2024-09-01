@@ -9,43 +9,27 @@ int n, k;
 int arr[MAX_N];
 
 int Solution(){
-    // 그룹에 속하는 숫자의 개수
-    int group1=0, group2=0;
-    // 1. group1이 최대 일 경우 구하기
-    int left=0, right=0;
-    // 최대인 구간의 idx 정렬되어 있으므로 first에 최소값 second에 최대값이 들어감
-    pair<int, int> max_range = {0, 0};
-    
-    for (left = 0; left < n; ++left) {
-        while (right < n && arr[right] - arr[left] <= k) {
+    int max_cnt=0;
+    // i에서 시작할 때 group1과 group2
+    for(int i=0; i<n; ++i){
+        // group1 [i, right]
+        int right=i;
+        while(right<n && arr[right]-arr[i]<=k){
             right++;
         }
-        if (right - left > group1) {
-            group1 = right - left;
-            max_range = {left, right - 1};
-        }
-    }
+        int group1 = right-i;
 
-    // 2. group2가 최대 일 경우 구하기
-    // 2-1. max_range.first 이전에서 찾기
-    right = 0;
-    for (left = 0; left < max_range.first; ++left) {
-        while (right < max_range.first && arr[right] - arr[left] <= k) {
-            right++;
+        // group2 [left, right] left<=right<n
+        int group2=0;
+        for(int left=right; left<n; ++left){
+            while(right<n && arr[right]-arr[left]<=k){
+                right++;
+            }
+            group2 = max(group2, right-left);
         }
-        group2 = max(group2, right - left);
+        max_cnt = max(max_cnt, group1+group2);
     }
-    
-    // 2-2. max_range.second 이후에서 찾기
-    right = max_range.second + 1;
-    for (left = max_range.second + 1; left < n; ++left) {
-        while (right<n && arr[right]-arr[left]<=k) {
-            right++;
-        }
-        group2 = max(group2, right - left);
-    }
-
-    return group1+group2;
+    return max_cnt;
 }
 
 int main() {
