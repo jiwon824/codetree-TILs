@@ -17,9 +17,8 @@ int main() {
     int answer=0;
     for(int i=n-1; i>=0; --i){
         if(coins[i]>k) continue;
-        int numOfCoin = k/coins[i];
-        k -= numOfCoin*coins[i];
-        answer+=numOfCoin;
+        answer+=k/coins[i];
+        k %= coins[i];
     }
     cout << answer << '\n';
     return 0;
