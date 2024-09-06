@@ -14,12 +14,8 @@ int main() {
 
     int sum=0, answer=-1001;
     for(int i=0; i<n; ++i){
-        if(sum+arr[i]<0){
-            sum=arr[i];
-        }
-        else{
-            sum+=arr[i];
-        }
+        if(sum<0) sum=arr[i];
+        else sum+=arr[i];
         answer = max(answer, sum);
     }
     cout << answer <<'\n';
