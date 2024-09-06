@@ -9,8 +9,8 @@ int n, m;
 vector<pair<int,int> > v;
 
 bool cmp(pair<int,int> &a, pair<int,int> &b){
-    float vpw_a = (float)a.second/a.first; //Value per weight 
-    float vpw_b = (float)b.second/b.first;
+    double vpw_a = (double)a.second/a.first; //Value per weight 
+    double vpw_b = (double)b.second/b.first;
     return vpw_a > vpw_b; // 무게당 가치가 높은 것이 먼저
 }
 
@@ -23,11 +23,12 @@ int main() {
 
     sort(v.begin(), v.end(), cmp);
 
-    float answer=0;
+    double answer=0;
     for(int i=0; i<n; ++i){
-        float weight=v[i].first;
-        float value = v[i].second;
-        if(m-weight>=0){
+        if(m==0) break;
+        double weight= v[i].first;
+        double value = v[i].second;
+        if(m>=weight){
             m-=weight;
             answer+=value;
         }
