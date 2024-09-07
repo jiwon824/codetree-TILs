@@ -22,11 +22,8 @@ int main() {
     
     sort(num.begin(), num.end(), cmp);
 
-    string answer="";
     for(int i=0; i<n; ++i){
-        answer = answer+num[i];
+        cout << num[i];
     }
-    cout << answer << '\n';
-
     return 0;
 }
