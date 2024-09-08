@@ -33,7 +33,10 @@ int main() {
             a_pointer++;
         }
         
-        if(a[a_pointer]>b[i]) answer++;
+        if(a[a_pointer]>b[i]) {
+            answer++;
+            a_pointer++;
+        }
     }
     cout << answer << '\n';
     return 0;
