@@ -20,14 +20,6 @@ int main() {
         price[i].second=min_val;
     }
 
-    sort(price.begin(), price.end());
-/*
-2 2
-3 2
-6 2
-9 9
-10 9
-*/
     int answer=0;
     for(int i=0; i<n; ++i){
         int gain=price[i].first-price[i].second;
