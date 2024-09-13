@@ -15,11 +15,9 @@ int main() {
                 i++;
                 range++;
             }
-            if(range>4) {
-                if(range%4==0) numOfSection+= range/4;
-                else numOfSection+= range/4+1;
-            }
-            else numOfSection++;
+
+            if(range%4==0) numOfSection+= range/4;
+            else numOfSection+= range/4+1;
         }
         range=1;
         i++;
