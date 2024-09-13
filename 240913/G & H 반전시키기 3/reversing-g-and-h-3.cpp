@@ -10,7 +10,7 @@ int main() {
     int range=0, numOfSection=0;
     for(int i=0; i<n; ){
         if(initStr[i]!=targetStr[i]){
-            while(i+1<n && initStr[i]!=targetStr[i]){
+            while(i<n && initStr[i]!=targetStr[i]){
                 i++;
                 range++;
             }
