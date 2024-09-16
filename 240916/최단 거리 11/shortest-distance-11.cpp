@@ -45,6 +45,9 @@ int main() {
 
     // solution
     Init();
+    for(int i =1; i<=n; ++i){
+        sort(graph[i].begin(), graph[i].end());
+    }
 
     //  도착 지점에서 시작
     pq.push({0, e_v}); // {dist, vertex}
@@ -70,13 +73,14 @@ int main() {
     vector<int> route;
     route.push_back(s_v);
     for(int x=s_v; x!=e_v; ){
-        for(int i=0; i<graph[x].size(); i++) {
+        for(int i=0; i<(int)graph[x].size(); i++) {
             int v= graph[x][i].first, d=graph[x][i].second;
             if(dist[v]+d == dist[x]) {
-                route.push_back(v);
                 x=v;
+                break;
             }
         }
+        route.push_back(x);
     }
 
     // output
