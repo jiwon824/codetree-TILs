@@ -6,7 +6,6 @@ const int MAX_N = 201;
 int n, m, p, q;
 int graph[MAX_N][MAX_N];
 
-
 // [초기화]
 void Init(){
     // 1. graph를 1e9로 초기화
@@ -14,9 +13,6 @@ void Init(){
         for(int j=1; j<=n; ++j){
             graph[i][j]=1e9;
         }
-    }
-    // (graph[i][i]=0)인 게 일반적이나, 문제에서 빨간점을 반드시 포함해야 한다고 했으므로)
-    for(int i=1; i<=p; ++i){
         graph[i][i]=0;
     }
 }
