@@ -1,8 +1,7 @@
 #include <iostream>
-#include <tuple>
 using namespace std;
 
-const int MAX_N = 250000;
+const int MAX_N = 250001;
 const int MAX_K = 101;
 
 struct Node {
@@ -13,7 +12,12 @@ struct Node {
 };
 
 Node *nodes[MAX_N];
-tuple<int, Node*, Node*> bookshelves[MAX_K];// {size, head, tail}
+int heads[MAX_K];
+int tails[MAX_K];
+
+bool empty(int shelves_num){
+    return heads[shelves_num]==0;
+}
 
 void Connect(Node *s, Node *e) {
     // s와 e를 이어줌
@@ -22,106 +26,133 @@ void Connect(Node *s, Node *e) {
 }
 
 /**
+* 가장 앞에 있는 책을 삭제하고 반환하는 함수
+* @param {shelves_num} 책꽂이 변호
+* @returns 맨 앞에 있던 노드를 반환
+*/
+Node* pop_front(int shelves_num){
+    Node *fNode=nodes[heads[shelves_num]];
+    if(nullptr==fNode) return nullptr;
+    
+    // head노드의 다음 노드가 없으면 0 있으면 다음노드의 id를 새 head로
+    if(nullptr==fNode->next) heads[shelves_num]=0;
+    else heads[shelves_num]=fNode->next->id;
+
+    fNode->next=nullptr;
+
+    // head가 없다=empty라는 의미->꼬리도 비워준다.
+    // 있다면 새로 바꾼 head의 prev를 null로
+    if(heads[shelves_num]==0) tails[shelves_num]=0;
+    else nodes[heads[shelves_num]]->prev = nullptr;
+
+    return fNode;
+}
+/**
+* 가장 뒤에 있는 책을 삭제하고 반환하는 함수
+* @param {shelves_num} 책꽂이 변호
+* @returns 맨 뒤에 있던 노드를 반환
+*/
+Node* pop_back(int shelves_num){
+    Node *bNode=nodes[tails[shelves_num]];
+    if(nullptr==bNode) return nullptr;
+
+    if(nullptr==bNode->prev) tails[shelves_num]=0;
+    else tails[shelves_num]=bNode->prev->id;
+
+    bNode->prev=nullptr;
+
+    if(tails[shelves_num]==0) heads[shelves_num]=0;
+    else nodes[tails[shelves_num]]->next=nullptr;
+    
+    return bNode;
+}
+
+/**
+* 앞에 삽입
+* @param {shelves_num} 책꽂이 변호
+* @param {u} 삽입할 노드
+*/
+void push_front(int shelves_num, Node* u){
+    if(heads[shelves_num]==0){
+        heads[shelves_num]=u->id;
+        tails[shelves_num]=u->id;
+    }
+    else{
+        Connect(u, nodes[heads[shelves_num]]);
+        heads[shelves_num]=u->id;
+    }
+}
+/**
+* 뒤에 삽입
+* @param {shelves_num} 책꽂이 변호
+* @param {u} 삽입할 노드
+*/
+void push_back(int shelves_num, Node* u){
+    if(tails[shelves_num]==0){
+        heads[shelves_num]=u->id;
+        tails[shelves_num]=u->id;
+    }
+    else{
+        Connect(nodes[tails[shelves_num]], u);
+        tails[shelves_num]=u->id;
+    }
+}
+
+/**
  * 1 i j : i번 책꽂이의 맨 앞 책을 j번 책꽂이의 맨 뒤에 꽂습니다.
  * i번 책꽂이에 책이 아무것도 없다면, 무시합니다.
  */
 void Func1(int a, int b){
-
-    int aSize, bSize;
-    Node *aHead, *aTail, *bHead, *bTail;
-    tie(aSize, aHead, aTail) = bookshelves[a];
-    tie(bSize, bHead, bTail) = bookshelves[b];
-
-    if (aSize==0) return;
-
-    if(a==b){
-        Connect(aTail, aHead);
-        bookshelves[a] = {aSize, aHead->next, aHead};
-    }
-    else{
-        // a의 첫 번째 책을 b의 마지막 다음에 연결
-        Connect(bTail, aHead);
-
-        // 바뀐 정보 갱신
-        bookshelves[a] = {aSize-1, aHead->next, aTail};
-        if(bSize==0) bookshelves[b] = {bSize+1, aHead, aHead};
-        else bookshelves[b] = {bSize+1, bHead, aHead};
-    }
-
-    // 연결 끊기
-    if (nullptr!=aHead->next) {
-        aHead->next->prev = nullptr;
-        aHead->next = nullptr;
-    }
+    if(empty(a)) return;
+    Node *fNode=pop_front(a);
+    push_back(b, fNode);
 }
 /**
  * 2 i j : i번 책꽂이의 맨 뒷 책을 j번 책꽂이의 맨 앞에 꽂습니다.
  * i번 책꽂이에 책이 아무것도 없다면, 무시합니다.
  */
 void Func2(int a, int b){
-    int aSize, bSize;
-    Node *aHead, *aTail, *bHead, *bTail;
-    tie(aSize, aHead, aTail) = bookshelves[a];
-    tie(bSize, bHead, bTail) = bookshelves[b];
-
-    if (aSize==0) return;
-    if(a==b){
-        Connect(aTail, aHead);
-        bookshelves[a] = {aSize, aTail, aTail->prev};
-    }
-    else{
-        // a의 마지막 책을 b의 맨 앞에 연결
-        Connect(aTail, bHead);
-
-        // 바뀐 정보 갱신
-        bookshelves[a]={aSize-1, aHead, aTail->prev};
-        if(bSize==0) bookshelves[b] = {bSize+1, aTail, aTail};
-        else bookshelves[b]={bSize+1, aTail, bTail};
-    }
-    
-    // 연결 끊기
-    if(nullptr!=aTail->prev) {
-        aTail->prev->next=nullptr;
-        aTail->prev=nullptr;
-    }
+    if(empty(a)) return;
+    Node *bNode = pop_back(a);
+    push_front(b, bNode);
 }
+
 /**
  * 3 i j : i번 책꽂이의 책을 모두 j번 책꽂이의 맨 앞으로 옮깁니다. 
  * 각 책꽂이에 책이 꽃혀 있던 순서는 유지되어야 합니다.
  */
 void Func3(int a, int b){
-    int aSize, bSize;
-    Node *aHead, *aTail, *bHead, *bTail;
-    tie(aSize, aHead, aTail) = bookshelves[a];
-    tie(bSize, bHead, bTail) = bookshelves[b];
+    if(a==b || empty(a)) return;
 
-    if (aSize==0 || a==b) return;
-
-    Connect(aTail, bHead);
-
-    // 바뀐 정보 갱신
-    bookshelves[a]={0, nullptr, nullptr};
-    if(bSize==0) bookshelves[b] = {aSize, aHead, aTail};
-    else bookshelves[b]={bSize+aSize, aHead, bTail};
+    if(empty(b)){
+        heads[b]=heads[a];
+        tails[b]=tails[a];
+    }
+    else{
+        Connect(nodes[tails[a]], nodes[heads[b]]);
+        heads[b]=heads[a];
+    }
+    
+    heads[a]=0;
+    tails[a]=0;
 }
 /**
  * 4 i j : i번 책꽂이의 책을 모두 j번 책꽂이의 맨 뒤로 옮깁니다. 
  * 각 책꽂이에 책이 꽃혀 있던 순서는 유지되어야 합니다.
  */
 void Func4(int a, int b){
-    int aSize, bSize;
-    Node *aHead, *aTail, *bHead, *bTail;
-    tie(aSize, aHead, aTail) = bookshelves[a];
-    tie(bSize, bHead, bTail) = bookshelves[b];
+    if(a==b || empty(a)) return;
+    if(empty(b)){
+        heads[b]=heads[a];
+        tails[b]=tails[a];
+    }
+    else{
+        Connect(nodes[tails[b]], nodes[heads[a]]);
+        tails[b]=tails[a];
+    }
 
-    if (aSize==0 || a==b) return;
-
-    Connect(bTail, aHead);
-
-    // 바뀐 정보 갱신
-    bookshelves[a]={0, nullptr, nullptr};
-    if(bSize==0) bookshelves[b] = {aSize, aHead, aTail};
-    else bookshelves[b]={bSize+aSize, bHead, aTail};
+    heads[a]=0;
+    tails[a]=0;
 }
 
 int main() {
@@ -135,9 +166,7 @@ int main() {
     for(int i=1; i<n; ++i){
         Connect(nodes[i], nodes[i+1]);
     }
-    // 처음에 N 개의 책은 번호 순서대로 모두 1번 책꽂이에 꽂혀 있습니다.
-    // 1번 책꽂이 정보={n개의 책, 맨 앞의 책, 맨 뒤의 책}
-    bookshelves[1]={n, nodes[1], nodes[n]};
+    heads[1]=1, tails[1]=n;
 
     int q;
     cin >> q;
@@ -153,12 +182,16 @@ int main() {
 
     // 최종 줄의 상태
     for(int i=1; i<=k; ++i){
-        int size;
-        Node *cur;
-        tie(size, cur, ignore) = bookshelves[i];
+        int cnt=0;
+        Node *cur=nodes[heads[i]];
+        while(nullptr!=cur){
+            cnt++;
+            cur = cur->next;
+        }
 
-        cout << size << " ";
-        while(size--){
+        cout << cnt << " ";
+        cur=nodes[heads[i]];
+        while(nullptr!=cur){
             cout << cur->id << " ";
             cur = cur->next;
         }
