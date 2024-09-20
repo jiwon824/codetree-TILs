@@ -107,9 +107,6 @@ void Func3(int a, int b){
 /**
  * 4 i j : i번 책꽂이의 책을 모두 j번 책꽂이의 맨 뒤로 옮깁니다. 
  * 각 책꽂이에 책이 꽃혀 있던 순서는 유지되어야 합니다.
-2 4 2
-2 3 1
-1 5
  */
 void Func4(int a, int b){
     int aSize, bSize;
@@ -125,7 +122,6 @@ void Func4(int a, int b){
     bookshelves[a]={0, nullptr, nullptr};
     if(bSize==0) bookshelves[b] = {aSize, aHead, aTail};
     else bookshelves[b]={bSize+aSize, bHead, aTail};
-    
 }
 
 int main() {
@@ -162,7 +158,7 @@ int main() {
         tie(size, cur, ignore) = bookshelves[i];
 
         cout << size << " ";
-        while(nullptr!=cur){
+        while(size--){
             cout << cur->id << " ";
             cur = cur->next;
         }
