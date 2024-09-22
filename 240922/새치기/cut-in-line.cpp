@@ -110,7 +110,7 @@ void Func3(int a, int b, int c){
         heads[line_a] = tails[line_a] = nullptr;
     }
     // node_a가 head인 경우
-    if(heads[line_a]==node_a) heads[line_a]=node_a->next;
+    if(heads[line_a]==node_a) heads[line_a]=node_b->next;
     // node_b가 tail인 경우
     if(tails[line_b]==node_b) tails[line_b]=node_a->prev;
     // node_c가 head인 경우
