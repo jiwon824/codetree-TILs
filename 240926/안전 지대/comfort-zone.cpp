@@ -6,7 +6,7 @@ const int MAX_N = 51;
 const int MAX_M = 51;
 
 int n, m, maxHeight;
-int waterLevel, safeZone; // ans
+int waterLevel=1, safeZone; // ans
 
 int house[MAX_N][MAX_M]; // arr
 bool visited[MAX_N][MAX_M];
