@@ -11,7 +11,6 @@ vector<pair<int, int>> edges[MAX_N]; //edges[i][j] = {i의 자식노드, 길이}
 bool visited[MAX_N]={false, };
 
 void DFS(int x, int e, int dist){
-    //cout << "DFS(): " << x << " " << e << " " << dist << '\n'; 
     // 종료조건
     if(x==e){
         answer=dist;
@@ -42,7 +41,8 @@ int main() {
         int a, b;
         cin >> a >> b;
         memset(visited, false, sizeof(visited));
-        
+
+        visited[a]=true;
         DFS(a, b, 0);
         cout << answer << '\n';
     }
