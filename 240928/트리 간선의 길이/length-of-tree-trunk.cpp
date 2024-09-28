@@ -5,19 +5,21 @@ using namespace std;
 
 const int MAX_N = 10001;
 
-int n;
+int n, max_dist, maxPoint;
 vector<pair<int, int> > edges[MAX_N];
-int dist[MAX_N][MAX_N];
 bool visited[MAX_N] = {false, };
 
-void DFS(int s, int x){
+void DFS(int x, int dist){
+    if(max_dist<dist){
+        max_dist=dist;
+        maxPoint=x;
+    }
+    
     for(int i=0; i<(int)edges[x].size(); ++i){
         int y=edges[x][i].first, d=edges[x][i].second;
         if(visited[y]) continue;
         visited[y]=true;
-        dist[s][y]=dist[s][x]+d;
-
-        DFS(s, y);
+        DFS(y, dist+d);
     }
 }
 
@@ -32,20 +34,17 @@ int main() {
     }
 
     // solution
-    for(int i=1; i<=n; ++i){
-        memset(visited, false, sizeof(visited));
-
-        visited[i]=true;
-        DFS(i, i);
-    }
+    // 1에서 가장 먼 노드 구하기(far_node)
+    visited[1]=true;
+    DFS(1, 0);
+    
+    // far_node에서 가장 먼 노드를 구하면 트리의 지름이 나온다.
+    memset(visited, false, sizeof(visited));
+    max_dist = 0;
+    visited[maxPoint]=true;
+    DFS(maxPoint, 0);
     
     // output
-    int answer = 0;
-    for(int i=1; i<=n; ++i){
-        for(int j=1; j<=n; ++j){
-            answer=max(answer, dist[i][j]);
-        }
-    }
-    cout << answer << '\n';
+    cout << max_dist << '\n';
     return 0;
 }
