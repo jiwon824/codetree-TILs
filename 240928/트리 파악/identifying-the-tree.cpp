@@ -1,31 +1,26 @@
 #include <iostream>
 #include <vector>
-#include <cstring> // memset
 
 using namespace std;
 
 const int MAX_N = 100001;
 
-int n, dfs_dist;
+int n;
 vector<int> edges[MAX_N];
 vector<int> leaf_node;
+vector<int> depth;
 bool visited[MAX_N] = {false, };
 
+// DFS로 모든 노드의 depth를 저장
+void DFS (int x, int d){
+    // x번 노드의 깊이 d
+    depth[x]=d;
 
-void DFS (int x, int e, int dist){
-    // 종료 조건
-    if(x==e){
-        dfs_dist = dist;
-        return;
-    }
-
-    // 재귀 호출(
     for(int i=0; i<(int)edges[x].size(); ++i){
         int y=edges[x][i];
         if(visited[y]) continue;
-
         visited[y]=true;
-        DFS(y, e, dist+1);
+        DFS(y, d+1);
     }
 
 }
@@ -33,6 +28,7 @@ void DFS (int x, int e, int dist){
 int main() {
     //input
     cin >> n;
+    depth.resize(n);
     for(int i=1; i<n; ++i){
         int a, b;
         cin >> a >> b;
@@ -47,16 +43,12 @@ int main() {
         if((int)edges[i].size()==1) leaf_node.push_back(i);
     }
 
-    // 루트에서 시작해서 각 리프노드까지의 거리
-    int sum=0; // 모든 (루드-리프) 거리의 합
-    for(int i=0; i<(int)leaf_node.size(); ++i){
-        int target=leaf_node[i];
-        dfs_dist=0;
-        memset(visited, false, sizeof(visited));
-        
-        DFS(1, target, 0);
+    // 모든 노드의 깊이 계산 및 저장
+    DFS(1, 0); // DFS(node_num, depth)
 
-        sum+=dfs_dist;
+    int sum=0;
+    for(int i=0; i<(int)leaf_node.size(); ++i){
+        sum+=depth[leaf_node[i]];
     }
 
     if(sum%2==0) cout << 0 <<'\n';
