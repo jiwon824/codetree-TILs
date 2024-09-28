@@ -6,24 +6,21 @@ using namespace std;
 
 const int MAX_N = 100001;
 
-int n, max_dist;
+int n, max_dist, max_node;
 vector<int> edges[MAX_N];
 bool visited[MAX_N];
-int dist[MAX_N]; // dist[i]: i번 노드에서 출발했을 때 가장 먼 노드까지의 거리
 
-// s에서 x노드까지의 거리 d
-void DFS(int s, int x, int d){
-    
+void DFS(int x, int d){
     if(d>max_dist){
         max_dist=d;
-        dist[s]=max_dist;
+        max_node=x;
     }
 
     for(int i=0; i<(int)edges[x].size(); ++i){
         int y=edges[x][i];
         if(visited[y]) continue;
         visited[y]=true;
-        DFS(s, y, d+1);
+        DFS(y, d+1);
     }
 }
 
@@ -39,19 +36,17 @@ int main() {
     }
 
     // solution
-    for(int i=1; i<=n; ++i){
-        max_dist=0;
-        memset(visited, false, sizeof(visited));
-        // i에서 i까지 거리가 0임->이후 i에 연결된 노드를 탐색
-        visited[i]=true;
-        DFS(i, i, 0);
-    }
+    // 가장 먼 노드(a)에서 가장 먼 노드(b)의 길이를 구하면
+    // a, b의 중간에 있는 노드가 가장 먼 노드까지의 거리가 최소인 노드
+    DFS(1, 0);
+
+    max_dist=0;
+    memset(visited, false, sizeof(visited));
+    DFS(max_node, 0);
 
     // output
-    int answer=1e9;
-    for(int i=1; i<=n; ++i){
-        answer=min(answer, dist[i]);
-    }
-    cout << answer << '\n';
+    // 정중앙에 있는 노드에서 가장 먼 노드까지의 길이
+    cout << (max_dist+1)/2 << '\n';
+
     return 0;
 }
