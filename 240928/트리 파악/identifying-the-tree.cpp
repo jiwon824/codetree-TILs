@@ -28,7 +28,7 @@ void DFS (int x, int d){
 int main() {
     //input
     cin >> n;
-    depth.resize(n);
+    depth.resize(n+1);
     for(int i=1; i<n; ++i){
         int a, b;
         cin >> a >> b;
@@ -44,6 +44,7 @@ int main() {
     }
 
     // 모든 노드의 깊이 계산 및 저장
+    visited[1]=true;
     DFS(1, 0); // DFS(node_num, depth)
 
     int sum=0;
