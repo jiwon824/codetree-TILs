@@ -20,7 +20,7 @@ vector<int> FindPreorder(int inorderStart, int inorderEnd, int postorderStart, i
     int root_val= postorder[postorderEnd];
     // root가 중위 순회에서 어디에 있는지
     int root_idx=0;
-    for(int i=0; i<n; ++i){
+    for(int i=inorderStart; i<=inorderEnd; ++i){
         if(inorder[i]==root_val){
             root_idx=i;
             break;
