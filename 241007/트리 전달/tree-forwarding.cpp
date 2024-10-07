@@ -24,7 +24,10 @@ int main() {
 
     // solution
     for(int i=1; i<=n; ++i){
-        if(parent[i]==-1) continue;
+        if(parent[i]==-1) {
+            dp[i]=score[i];
+            continue;
+        }
         dp[i]=dp[parent[i]]+score[i];
     }
 
