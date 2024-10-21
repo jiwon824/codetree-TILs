@@ -5,6 +5,7 @@ const int MAX_N = 100'000;
 
 int n, m;
 int uf[MAX_N];
+int size[MAX_N];
 
 int my_find(int x){
     if(uf[x]==x) return x;
@@ -13,7 +14,11 @@ int my_find(int x){
 
 void my_union(int x, int y){
     x=my_find(x), y=my_find(y);
-    uf[x]=y;
+    if(x!=y){
+        if(size[x]<size[y]) swap(x, y); // 항상 더 큰 트리에 작은 트리를 붙이기
+        uf[y] = x;
+        size[x] += size[y];
+    }
 }
 
 int main() {
@@ -21,6 +26,7 @@ int main() {
     // uf 배열 초기화
     for(int i=1; i<=n; ++i){
         uf[i]=i;
+        size[i]=1;
     }    
     
     while(m--){
@@ -35,13 +41,7 @@ int main() {
         else if(command=='y'){
             int a;
             cin >> a;
-
-            int num_of_node=1; // 연결된 노드가 적어도 자기자신 1개
-            for(int i=1; i<=n; ++i){
-                if(a==i) continue;
-                if(my_find(a)==my_find(i)) num_of_node++;
-            }
-            cout << num_of_node << '\n';
+            cout << size[my_find(a)] << '\n';
         }
     }
 
