@@ -5,7 +5,7 @@ const int MAX_N =100'000;
 
 int n;
 int uf[MAX_N+1];
-int size[MAX_N+1];    
+long long size[MAX_N+1];    
 
 int myFind(int x){
     if(uf[x]==x) return x;
@@ -21,7 +21,7 @@ void myUnion(int x, int y){
 int main() {
     cin >> n;
     
-    for(int i=1; i<=n+1; ++i){
+    for(int i=1; i<=MAX_N; ++i){
         uf[i]=i;
         size[i]=1;
     }
@@ -32,5 +32,6 @@ int main() {
         myUnion(a, b);
         cout << size[myFind(a)] << '\n';
     }
+    
     return 0;
 }
