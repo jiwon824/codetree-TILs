@@ -11,9 +11,11 @@ int myFind(int x){
     return uf[x]=myFind(uf[x]);
 }
 
-void myUnion(int x, int y){
+bool myUnion(int x, int y){
     x=myFind(x), y=myFind(y);
+    if(x==y) return false;
     uf[x]=y;
+    return true;
 }
 
 int main() {
@@ -22,21 +24,23 @@ int main() {
     for(int i=1; i<=n; ++i){
         uf[i]=i;
     }
+
     // m개의 간선 연결
+    int answer=0;
     while(m--){
         int a, b;
         cin >> a >> b;
-        myUnion(a, b);
+        // union이 실패라면 사이클이 생긴 것-> 끊어야 하는 간선
+        if(!myUnion(a, b)) answer++;
     }
 
-    // 연결되지 않은 간선 연결
-    int answer=0;
-    for(int i=2; i<=n; ++i){
-        if(myFind(1)!=myFind(i)){
-            answer++;
-            myUnion(1, i);
-        }
+    // 그래프의 개수를 세서 연결해야 할 노드의 수를 구함
+    for(int i=1; i<=n; ++i){
+        // 루트 노드의 개수
+        if(myFind(i)==i) answer++;
     }
-    cout << answer << '\n';
+    
+    // 간선의수= 노드-1
+    cout << answer-1 << '\n';
     return 0;
 }
