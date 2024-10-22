@@ -15,9 +15,9 @@ int myFind(int x){
 void myUnion(int x, int y){
     x=myFind(x), y=myFind(y);
     
+    // 이미 같은 집합인 경우
     if(x==y) return;
 
-    if(y > x) swap(x, y);
     size[y]+=size[x];
     uf[x]=y;
 }
