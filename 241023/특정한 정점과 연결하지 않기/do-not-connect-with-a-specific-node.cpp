@@ -59,6 +59,8 @@ int main() {
     sort(components.begin(), components.end(), greater<>());
 
     int answer=size[myFind(nodeA)];
+    
+    k=min(k, (int)components.size());
     for(int i=0; i<k; ++i){
         answer+=components[i];
     }
