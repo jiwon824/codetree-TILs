@@ -2,8 +2,8 @@
 #include <iomanip> //setprecision
 #include <vector>
 #include <tuple>
-#include <cmath>
-#include <algorithm>
+#include <cmath> // pow, sqrt
+#include <algorithm> // sort
 
 using namespace std;
 
@@ -13,7 +13,7 @@ const int MAX_M = 200;
 int n, m;
 int uf[MAX_N]; // i번째 점의 소속
 vector<pair<int,int> > points; // {x, y}
-vector<tuple<float,int,int> > edges; // {dist, a, b} a번 노드와 b번 노드의 거리 dist
+vector<tuple<double,int,int> > edges; // {dist, a, b} a번 노드와 b번 노드의 거리 dist
 
 int myFind(int x){
     if(uf[x]==x) return x;
@@ -25,7 +25,7 @@ void myUnion(int x, int y){
     uf[x]=y;
 }
 
-float distBetweenTwoPoints(pair<int,int> a, pair<int,int> b){
+double distBetweenTwoPoints(pair<int,int> a, pair<int,int> b){
     // 두 점 사이의 거리: sqrt((x_2 - x_1)^2 + (y_2 - y_1)^2)
     return sqrt(pow(b.first-a.first, 2) + pow(b.second-a.second, 2));
 }
@@ -53,7 +53,7 @@ int main() {
     // 각 점들을 잇는 모든 간선 추가
     for(int i=1; i<=n; ++i){
         for(int j=i+1; j<=n; ++j){
-            float dist = distBetweenTwoPoints(points[i], points[j]);
+            double dist = distBetweenTwoPoints(points[i], points[j]);
             edges.push_back({dist, i, j});
         }
     }
@@ -61,9 +61,9 @@ int main() {
     // dist 순으로 정렬
     sort(edges.begin(), edges.end());
     
-    float mstSum = 0.0;
+    double mstSum = 0.0;
     for(auto e : edges){
-        float dist;
+        double dist;
         int a, b;
         tie(dist, a, b)=e;
         if(myFind(a)==myFind(b)) continue;
