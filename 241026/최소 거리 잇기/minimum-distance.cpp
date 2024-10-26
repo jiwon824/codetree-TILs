@@ -11,7 +11,7 @@ const int MAX_N = 200;
 const int MAX_M = 200;
 
 int n, m;
-int uf[MAX_N]; // i번째 점의 소속
+int uf[MAX_N+1]; // i번째 점의 소속
 vector<pair<int,int> > points; // {x, y}
 vector<tuple<double,int,int> > edges; // {dist, a, b} a번 노드와 b번 노드의 거리 dist
 
