@@ -22,7 +22,7 @@ void myUnion(int x, int y){
     uf[x]=y;
 }
 
-int CalcultateCost(){
+long long CalcultateCost(){
     // uf 배열 초기화
     for(int i=1; i<=n; ++i){
         uf[i]=i;
@@ -49,7 +49,7 @@ int main() {
         edges.push_back({t, a, b});
     }
     
-    int minCost=1e9, maxCost=0;
+    long long minCost=1e9, maxCost=0;
     //minCost 계산
     sort(edges.rbegin(), edges.rend());
     minCost = CalcultateCost();
