@@ -74,7 +74,7 @@ void myUnion(int x, int y){
 // 모든 기지를 활성화하기 위한 최소 비용 계산
 int kruskal() {
     // uf 배열 초기화(0-based)
-    for(int i=0; i<n; ++i){
+    for(int i=0; i<(int)bases.size(); ++i){
         uf[i]=i;
     }
 
