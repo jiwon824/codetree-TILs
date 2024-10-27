@@ -51,7 +51,7 @@ void BFS(int i, int j, int baseIdx){
 
                 visited[nx][ny]=true;
                 q.push({nx, ny, dist+1});
-                // (x, y)가 활성화되지 않은 기지일 경우 edge 추가
+                // (nx, ny)가 활성화되지 않은 기지일 경우 edge 추가
                 if(arr[nx][ny]==2) {
                     int a=baseIdx, b=findBaseNum(nx, ny);
                     edges.push_back({dist+1, a, b});
