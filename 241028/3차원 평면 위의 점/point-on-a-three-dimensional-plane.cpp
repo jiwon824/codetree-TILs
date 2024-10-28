@@ -9,7 +9,7 @@ const int MAX_N = 100'000;
 
 int n;
 int uf[MAX_N+1];
-vector<tuple<int,int,int> > points; // points[i]: i번 점의 좌표{x, y, z}
+vector<tuple<int,int,int,int> > points; // points: i번 점의 좌표{x, y, z, i}
 vector<tuple<int,int,int> > edges; // a와 b번 점을 잇는 간선의 길이 diff {diff, a, b};
 
 int myFind(int x){
@@ -22,54 +22,54 @@ void myUnion(int x, int y){
     uf[x]=y;
 }
 
-bool cmpSec(tuple<int,int,int> &v1, tuple<int,int,int> &v2){
+bool cmpSec(tuple<int,int,int,int> &v1, tuple<int,int,int,int> &v2){
     return get<1>(v1)<get<1>(v2);
 }
-bool cmpThr(tuple<int,int,int> &v1, tuple<int,int,int> &v2){
+bool cmpThr(tuple<int,int,int,int> &v1, tuple<int,int,int,int> &v2){
     return get<2>(v1)<get<2>(v2);
 }
 
 void makeEdges(){
     // x 좌표를 기준으로 정렬한 후, 인접 노드 간의 간선 저장
     sort(points.begin(), points.end());
-    for(int i=0; i<n; ++i){
-        int ax, ay, az;
-        tie(ax, ay, az)=points[i];
-        int bx, by, bz;
-        tie(bx, by, bz)=points[i+1];
+    for(int i=0; i<n-1; ++i){
+        int ax, ay, az, a;
+        tie(ax, ay, az, a)=points[i];
+        int bx, by, bz, b;
+        tie(bx, by, bz, b)=points[i+1];
 
         // 임의의 두 개의 점을 연결할 때 드는 비용
         // 두 점의 x좌표의 차, 두 점의 y좌표의 차, 두 점의 z좌표의 차 중 가장 작은 값
         int min_diff=min({abs(ax-bx), abs(ay-by), abs(az-bz)});
-        edges.push_back({min_diff, i, i+1});
+        edges.push_back({min_diff, a, b});
     }
 
     // y 좌표를 기준으로 정렬한 후, 인접 노드 간의 간선 저장
     sort(points.begin(), points.end(), cmpSec);
-    for(int i=0; i<n; ++i){
-        int ax, ay, az;
-        tie(ax, ay, az)=points[i];
-        int bx, by, bz;
-        tie(bx, by, bz)=points[i+1];
+    for(int i=0; i<n-1; ++i){
+        int ax, ay, az, a;
+        tie(ax, ay, az, a)=points[i];
+        int bx, by, bz, b;
+        tie(bx, by, bz, b)=points[i+1];
 
         // 임의의 두 개의 점을 연결할 때 드는 비용
         // 두 점의 x좌표의 차, 두 점의 y좌표의 차, 두 점의 z좌표의 차 중 가장 작은 값
         int min_diff=min({abs(ax-bx), abs(ay-by), abs(az-bz)});
-        edges.push_back({min_diff, i, i+1});
+        edges.push_back({min_diff, a, b});
     }
 
     // z 좌표를 기준으로 정렬한 후, 인접 노드 간의 간선 저장
     sort(points.begin(), points.end(), cmpThr);
-    for(int i=0; i<n; ++i){
-        int ax, ay, az;
-        tie(ax, ay, az)=points[i];
-        int bx, by, bz;
-        tie(bx, by, bz)=points[i+1];
+    for(int i=0; i<n-1; ++i){
+        int ax, ay, az, a;
+        tie(ax, ay, az, a)=points[i];
+        int bx, by, bz, b;
+        tie(bx, by, bz, b)=points[i+1];
 
         // 임의의 두 개의 점을 연결할 때 드는 비용
         // 두 점의 x좌표의 차, 두 점의 y좌표의 차, 두 점의 z좌표의 차 중 가장 작은 값
         int min_diff=min({abs(ax-bx), abs(ay-by), abs(az-bz)});
-        edges.push_back({min_diff, i, i+1});
+        edges.push_back({min_diff, a, b});
     }
 }
 
@@ -80,16 +80,18 @@ int main() {
     for(int i=0; i<n; ++i){
         int x, y, z;
         cin >> x >> y >> z;
-        points.push_back({x, y, z});
+        points.push_back({x, y, z, i});
     }
 
     // [solution] 1. 간선 구하기
     makeEdges();
-
     // [solution] 2. 간선 정렬
     sort(edges.begin(), edges.end());
-
-    // [solution] 3. Union-find
+    // [solution] 3. uf 배열 초기화
+    for (int i = 0; i <= n; ++i) {
+        uf[i] = i;
+    }
+    // [solution] 4. Union-find
     int answer =0;
     for(auto e : edges){
         int diff, a, b;
