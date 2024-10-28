@@ -22,6 +22,57 @@ void myUnion(int x, int y){
     uf[x]=y;
 }
 
+bool cmpSec(tuple<int,int,int> &v1, tuple<int,int,int> &v2){
+    return get<1>(v1)<get<1>(v2);
+}
+bool cmpThr(tuple<int,int,int> &v1, tuple<int,int,int> &v2){
+    return get<2>(v1)<get<2>(v2);
+}
+
+void makeEdges(){
+    // x 좌표를 기준으로 정렬한 후, 인접 노드 간의 간선 저장
+    sort(points.begin(), points.end());
+    for(int i=0; i<n; ++i){
+        int ax, ay, az;
+        tie(ax, ay, az)=points[i];
+        int bx, by, bz;
+        tie(bx, by, bz)=points[i+1];
+
+        // 임의의 두 개의 점을 연결할 때 드는 비용
+        // 두 점의 x좌표의 차, 두 점의 y좌표의 차, 두 점의 z좌표의 차 중 가장 작은 값
+        int min_diff=min({abs(ax-bx), abs(ay-by), abs(az-bz)});
+        edges.push_back({min_diff, i, i+1});
+    }
+
+    // y 좌표를 기준으로 정렬한 후, 인접 노드 간의 간선 저장
+    sort(points.begin(), points.end(), cmpSec);
+    for(int i=0; i<n; ++i){
+        int ax, ay, az;
+        tie(ax, ay, az)=points[i];
+        int bx, by, bz;
+        tie(bx, by, bz)=points[i+1];
+
+        // 임의의 두 개의 점을 연결할 때 드는 비용
+        // 두 점의 x좌표의 차, 두 점의 y좌표의 차, 두 점의 z좌표의 차 중 가장 작은 값
+        int min_diff=min({abs(ax-bx), abs(ay-by), abs(az-bz)});
+        edges.push_back({min_diff, i, i+1});
+    }
+
+    // z 좌표를 기준으로 정렬한 후, 인접 노드 간의 간선 저장
+    sort(points.begin(), points.end(), cmpThr);
+    for(int i=0; i<n; ++i){
+        int ax, ay, az;
+        tie(ax, ay, az)=points[i];
+        int bx, by, bz;
+        tie(bx, by, bz)=points[i+1];
+
+        // 임의의 두 개의 점을 연결할 때 드는 비용
+        // 두 점의 x좌표의 차, 두 점의 y좌표의 차, 두 점의 z좌표의 차 중 가장 작은 값
+        int min_diff=min({abs(ax-bx), abs(ay-by), abs(az-bz)});
+        edges.push_back({min_diff, i, i+1});
+    }
+}
+
 int main() {
     // [input] 점의 개수 n
     cin >> n;
@@ -32,26 +83,13 @@ int main() {
         points.push_back({x, y, z});
     }
 
-    // [solution] 1. 모든 점에 대해 간선 정보 구하기
-    // i번 점과 j번 점의 좌표 차 중 가장 작은 값을 edges에 저장
-    for(int i=0; i<n; ++i){
-        for(int j=i+1; j<n; ++j){
-            int ax, ay, az;
-            tie(ax, ay, az)=points[i];
-            int bx, by, bz;
-            tie(bx, by, bz)=points[j];
+    // [solution] 1. 간선 구하기
+    makeEdges();
 
-            // 임의의 두 개의 점을 연결할 때 드는 비용
-            // 두 점의 x좌표의 차, 두 점의 y좌표의 차, 두 점의 z좌표의 차 중 가장 작은 값
-            int min_diff=min({abs(ax-bx), abs(ay-by), abs(az-bz)});
-            edges.push_back({min_diff, i, j});
-        }
-    }
-    
-    // 간선 정렬
+    // [solution] 2. 간선 정렬
     sort(edges.begin(), edges.end());
 
-    //Union-find
+    // [solution] 3. Union-find
     int answer =0;
     for(auto e : edges){
         int diff, a, b;
@@ -61,6 +99,7 @@ int main() {
         answer+=diff;
     }
 
+    // [output] answer 출력
     cout << answer << '\n';
     return 0;
 }
