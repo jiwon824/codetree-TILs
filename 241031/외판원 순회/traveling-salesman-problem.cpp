@@ -13,7 +13,11 @@ int calculateCost(){
     int cost=0;
     for(int i=1; i<(int)picked.size(); ++i){
         int nodeA=picked[i-1], nodeB=picked[i];
-        // a->b로 가는 비용을 
+        // 0은 이동할 수 없음을 뜻하며, arr[i][i]=0
+        // 즉, arr[nodeA][nodeB]==0이라면 불가능한 경로 이므로 -1 반환
+        if(arr[nodeA][nodeB]==0) return -1;
+
+        // a->b로 가는 비용을 더함
         cost+=arr[nodeA][nodeB];
     }
     return cost;
@@ -24,7 +28,8 @@ void pickNode(int numOfPick){
     if(numOfPick==n){
         // 1로 돌아와야 함
         picked.push_back(1);
-        answer = min(answer, calculateCost());
+        int cost = calculateCost();
+        answer = (cost!=-1) ? min(answer, cost) : answer;
         // 다음 순열 계산해야 하므로 1 제거
         picked.pop_back();
         return;
