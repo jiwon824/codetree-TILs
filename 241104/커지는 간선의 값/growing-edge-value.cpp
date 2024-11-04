@@ -35,7 +35,8 @@ int main() {
     // 거리 dist 내의 값들 중 최솟값 선택(우선순위 큐를 사용)
         // 다익스트라와 마찬가지로 프림 알고리즘에서도
         // 최솟값을 골라주는 과정을 여러 번 반복하기 때문
-    int answer=0, cnt=0;
+    long long answer=0;
+    int cnt=0;
     // 시작점을 queue에 넣어줌 {weight, vertex}
     pq.push({0, 1});
     while(!pq.empty()){
